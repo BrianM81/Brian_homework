@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 
 
@@ -28,11 +30,14 @@ named_stock_prices
 ```
 
 Question 3
-
 stock_data <- data.frame(day of week, stock prices)
 
+
 ```{r}
-View(stock_data)
 ```
+
+i
+
+
 
 
