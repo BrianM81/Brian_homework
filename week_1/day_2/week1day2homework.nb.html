@@ -1749,19 +1749,38 @@ summary {
 
 
 <!-- rnb-text-begin -->
-<p>Question 1</p>
+<p>```</p>
+<p>stock_prices &lt;- c(23, 27, 23, 21, 34, 24, 25, 30, 37, 30)</p>
+<p>day_of_week &lt;- rep(c(“Monday”, “Tuesday”, “Wednesday”, “Thursday”, “Friday”), times = 2)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF5X29mX3dlZWtcbmBgYCJ9 -->
+<pre class="r"><code>day_of_week</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Question 2</p>
+<p>day_of_week_factor &lt;- c(as.factor(day_of_week))</p>
+<p>named_stock_prices &lt;- c(names(day_of_week_factor, stock_prices))</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZWRfc3RvY2tfcHJpY2VzIFxuYGBgIn0= -->
+<pre class="r"><code>named_stock_prices </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 3</p>
+<p>stock_data &lt;- data.frame(day of week, stock prices)</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmlldyhzdG9ja19kYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>View(stock_data)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpRdWVzdGlvbiAxCmBgYHtyfQoKYGBgClF1ZXN0aW9uIDIKYGBge3J9CgpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgoKYGBgCgoKc3RvY2tfcHJpY2VzIDwtIGMoMjMsIDI3LCAyMywgMjEsIDM0LCAyNCwgMjUsIDMwLCAzNywgMzApCgpkYXlfb2Zfd2VlayA8LSByZXAoYygiTW9uZGF5IiwgIlR1ZXNkYXkiLCAiV2VkbmVzZGF5IiwgIlRodXJzZGF5IiwgIkZyaWRheSIpLCB0aW1lcyA9IDIpCgpgYGB7cn0KZGF5X29mX3dlZWsKYGBgCgpRdWVzdGlvbiAyIAoKZGF5X29mX3dlZWtfZmFjdG9yIDwtIGMoYXMuZmFjdG9yKGRheV9vZl93ZWVrKSkKCm5hbWVkX3N0b2NrX3ByaWNlcyA8LSBjKG5hbWVzKGRheV9vZl93ZWVrX2ZhY3Rvciwgc3RvY2tfcHJpY2VzKSkKCmBgYHtyfQpuYW1lZF9zdG9ja19wcmljZXMgCmBgYAoKUXVlc3Rpb24gMwoKc3RvY2tfZGF0YSA8LSBkYXRhLmZyYW1lKGRheSBvZiB3ZWVrLCBzdG9jayBwcmljZXMpCgpgYGB7cn0KVmlldyhzdG9ja19kYXRhKQpgYGAKCgo=</div>
 
 
 
