@@ -1,0 +1,48 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+#Question 1
+```{r}
+library(readr)
+library(CodeClanData)
+
+state_income_data <- read.csv("data/state_income_data.csv")
+```
+
+Read in the state_income_data.csv file using the appropriate function.
+```{r}
+#import library "readr"
+library(readr)
+library(dplyr)
+#load JSON library too
+library(jsonlite)
+#load library to deal with excel
+library(readxl)
+```
+#Look for the head of the data set
+```{r}
+head(read_csv("data/state_income_data.csv")) #read file
+```
+
+head(read_csv("data/state_income_data.csv")) #read file
+
+
+#Question 2
+
+#How do you specify your own column names when using read_csv()?
+#We use the col_names function
+
+#Question 3 
+#Read in the cars.csv file and use the col_types() function to ensure you load in:
+
+#X1 as character
+#mpg, cyl, disp, hp as double
+#vs as logical
+
+```{r}
+library(readr)
+data_cars <- read.csv('state_income_data')
+data_cars
+```
