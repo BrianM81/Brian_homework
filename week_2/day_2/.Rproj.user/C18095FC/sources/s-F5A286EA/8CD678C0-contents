@@ -1,0 +1,66 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+#First part keyed in in terminal
+user=# /q
+user-# psql
+user-# createdb wrestling
+user-# dropdb wrestling
+user-# touch wrestling.sql
+user-# psql -d wrestling -f wrestling.sql
+user-# 
+
+#Set up library now in R for access to relevant functions
+```{r}
+library(RPostgreSQL)
+```
+#source in credentials.R
+```{r}
+source("/Users/user/credentials.R")
+```
+
+source("/Users/user/credentials.R")
+
+
+```{r}
+PostgreSQL(max.con =2)
+```
+
+# we need to source in our credentials file
+# this should work for all machines
+```{r}
+home_location <- Sys.getenv("HOME")
+credentials_location <- paste0(home_location,"/credentials.R")
+source(credentials_location)
+```
+
+# next, we create a connection to the database
+```{r}
+my_db_connection <- dbConnect(drv = PostgreSQL(max.con = 2), user = postgresql_username, password = postgresql_password, dbname = 'wrestling', host = 'localhost')
+```
+
+
+# now that we've used the username and password to create a db connection, we can hide them
+```{r}
+rm(postgresql_username, postgresql_password)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
