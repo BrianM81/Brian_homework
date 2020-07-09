@@ -1,0 +1,7 @@
+"0","SELECT 
+    first_name,
+    last_name,
+    country
+FROM employees
+ORDER BY country ASC, last_name ASC NULLS LAST
+--again, for last name change it to LOWER(last_name)"

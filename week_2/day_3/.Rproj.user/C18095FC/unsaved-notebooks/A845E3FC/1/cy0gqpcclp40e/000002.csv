@@ -1,0 +1,9 @@
+"0","SELECT
+first_name,
+last_name,
+salary, 
+country
+FROM employees
+WHERE country = 'Hungary'
+ORDER BY salary ASC NULLS LAST
+LIMIT 1"

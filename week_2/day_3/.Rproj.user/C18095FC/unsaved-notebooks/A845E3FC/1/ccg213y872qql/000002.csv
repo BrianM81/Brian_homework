@@ -1,0 +1,7 @@
+"0","SELECT 
+    first_name,
+    last_name
+FROM employees
+ORDER BY last_name ASC NULLS LAST
+
+--actually you need to do ORDER BY LOWER(last_name)ASC NULLS last"
