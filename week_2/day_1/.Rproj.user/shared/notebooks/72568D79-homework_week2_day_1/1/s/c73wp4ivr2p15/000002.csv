@@ -1,3 +1,0 @@
-"0","head(read_csv(""data/state_income_data.csv"")) #read file"
-"2","Error: 'data/state_income_data.csv' does not exist in current working directory ('/Users/user/Codeclan/Brian_homework/week_2/day_1').
-"

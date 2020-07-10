@@ -1,4 +1,0 @@
-"0","SELECT 
-  COUNT(*) --better doing count(id) so there's not missing values
-FROM employees
-WHERE country = 'Portugal'"

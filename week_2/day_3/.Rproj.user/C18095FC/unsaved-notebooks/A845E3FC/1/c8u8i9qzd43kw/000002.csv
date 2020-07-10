@@ -1,4 +1,0 @@
-"0","SELECT
- COUNT(*)
-FROM pay_details 
-WHERE local_account_no= NULL AND iban = NULL"

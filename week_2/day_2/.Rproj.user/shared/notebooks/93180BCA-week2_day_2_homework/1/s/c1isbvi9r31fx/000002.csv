@@ -1,5 +1,0 @@
-"0","```r
-library(RPostgreSQL)
-```"
-"1","Loading required package: DBI
-"
