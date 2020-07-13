@@ -1750,8 +1750,178 @@ summary {
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0aGUgUlBvc3RncmVTUUwgcGFja2FnZSBjb250YWlucyB0aGUgc3BlY2lmaWMgZHJpdmVycyBmb3IgY29ubmVjdGluZyB0byBQb3N0Z3JlU1FMIGRhdGFiYXNlc1xubGlicmFyeShSUG9zdGdyZVNRTClcblxuIyB3ZSBuZWVkIHRvIHNvdXJjZSBpbiBvdXIgY3JlZGVudGlhbHMgZmlsZVxuIyB0aGlzIHNob3VsZCB3b3JrIGZvciBhbGwgbWFjaGluZXNcbmhvbWVfbG9jYXRpb24gPC0gU3lzLmdldGVudihcIkhPTUVcIilcbmNyZWRlbnRpYWxzX2xvY2F0aW9uIDwtIHBhc3RlMChob21lX2xvY2F0aW9uLFwiL2NyZWRlbnRpYWxzLlJcIilcbnNvdXJjZShjcmVkZW50aWFsc19sb2NhdGlvbilcblxuIyBuZXh0LCB3ZSBjcmVhdGUgYSBjb25uZWN0aW9uIHRvIHRoZSBkYXRhYmFzZVxubXlfZGJfY29ubmVjdGlvbiA8LSBkYkNvbm5lY3QoZHJ2ID0gUG9zdGdyZVNRTChtYXguY29uID0gMSksIHVzZXIgPSBwb3N0Z3Jlc3FsX3VzZXJuYW1lLCBwYXNzd29yZCA9IHBvc3RncmVzcWxfcGFzc3dvcmQsIGRibmFtZSA9ICdhY21lX2VtcGxveWVlcycsIGhvc3QgPSAnbG9jYWxob3N0JylcblxuIyBub3cgdGhhdCB3ZSd2ZSB1c2VkIHRoZSB1c2VybmFtZSBhbmQgcGFzc3dvcmQgdG8gY3JlYXRlIGEgZGIgY29ubmVjdGlvbiwgd2UgY2FuIGRlbGV0ZSB0aGVtIGZyb20gZ2xvYmFsIHNjb3BlXG5ybShwb3N0Z3Jlc3FsX3VzZXJuYW1lLCBwb3N0Z3Jlc3FsX3Bhc3N3b3JkKVxuYGBgIn0= -->
+<pre class="r"><code># the RPostgreSQL package contains the specific drivers for connecting to PostgreSQL databases
+library(RPostgreSQL)
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoK</div>
+# we need to source in our credentials file
+# this should work for all machines
+home_location &lt;- Sys.getenv(&quot;HOME&quot;)
+credentials_location &lt;- paste0(home_location,&quot;/credentials.R&quot;)
+source(credentials_location)
+
+# next, we create a connection to the database
+my_db_connection &lt;- dbConnect(drv = PostgreSQL(max.con = 1), user = postgresql_username, password = postgresql_password, dbname = 'acme_employees', host = 'localhost')
+
+# now that we've used the username and password to create a db connection, we can delete them from global scope
+rm(postgresql_username, postgresql_password)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGJfY29ubmVjdFxuYGBgIn0= -->
+<pre class="r"><code>db_connect</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPFBvc3RncmVTUUxDb25uZWN0aW9uPlxuIn0= -->
+<pre><code>&lt;PostgreSQLConnection&gt;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGJMaXN0VGFibGVzKGNvbm4gPSBteV9kYl9jb25uZWN0aW9uKVxuYGBgIn0= -->
+<pre class="r"><code>dbListTables(conn = my_db_connection)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiZW1wbG95ZWVzXCJcbiJ9 -->
+<pre><code>[1] &quot;employees&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBub3RlIHJlY3VycmluZyBwYXR0ZXJuLCBhbHdheXMgcGFzcyBpbiB0aGUgY29ubmVjdGlvbiBvYmplY3QgYWxvbmcgd2l0aCBhbnkgb3RoZXIgcmVxdWlyZWQgYXJndW1lbnRzXG5kYkxpc3RGaWVsZHMoY29ubiA9IG15X2RiX2Nvbm5lY3Rpb24sIG5hbWUgPSBcImVtcGxveWVlc1wiKVxuYGBgIn0= -->
+<pre class="r"><code># note recurring pattern, always pass in the connection object along with any other required arguments
+dbListFields(conn = my_db_connection, name = &quot;employees&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaWRcIiAgICAgICAgIFwiZmlyc3RfbmFtZVwiIFwibGFzdF9uYW1lXCIgIFwiZW1haWxcIiAgICAgIFwidGVhbV9pZFwiICAgXG4ifQ== -->
+<pre><code>[1] &quot;id&quot;         &quot;first_name&quot; &quot;last_name&quot;  &quot;email&quot;      &quot;team_id&quot;   </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0aGUgcGF0dGVybiBhZ2FpbiEgVGFrZXMgaW4gY29ubmVjdGlvbiBvYmplY3QgYW5kIGEgc3RyaW5nIGNvbnRhaW5pbmcgU1FMIGNvbW1hbmRcbmRhdGEgPC0gZGJHZXRRdWVyeShjb25uID0gbXlfZGJfY29ubmVjdGlvbiwgc3RhdGVtZW50ID0gXCJTRUxFQ1QgKiBGUk9NIGVtcGxveWVlc1wiKVxuXG4jIHdoYXQgY2xhc3MgZG9lcyB0aGlzIHJldHVybj9cbmNsYXNzKGRhdGEpXG5gYGAifQ== -->
+<pre class="r"><code># the pattern again! Takes in connection object and a string containing SQL command
+data &lt;- dbGetQuery(conn = my_db_connection, statement = &quot;SELECT * FROM employees&quot;)
+
+# what class does this return?
+class(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiZGF0YS5mcmFtZVwiXG4ifQ== -->
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjb250ZW50cyBhbmQgc2l6ZVxuaGVhZChkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code># contents and size
+head(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NSwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE2MVN6MHZETUJSKzdaYk9GcFNCSUhqekgyZ1I5YUMzSWRPVFhtU2l0L0hhWmxzd1RVZVRvYnY1bDI4bVdUSnRUd29XMHI3M3ZmZTlIMS96Tkg2OVRGNFRBT2hCTDlKdm9rMGd6NVA3OUJxZ0gyb25nRDdFNXZ1aHc4Y21xcytoUHBFTkFvU1czYmFITnI0amtnbm0rZG81MFF0eXpxajNibGRDN0wxZkpMWXJSdzlVY3VvWjVLNlV0WERPd1ppZFBXTEQ4QytwN2Vvbmlsdk8rVWd1bUZoTGhTb3I2a3BINHExK1hOWnBYckxLc0M5R25FbVZWaWh3VG0zaVA1WDVWcnZ2Vk82MTdkWnZJZ0lyS3QwcXhJRWhLNTJWekZnajFkUWtPU1RtMkFZSXJaQng1d3dVeFdxcTZlMHVjVk8vWjc2VEdTLzhCUHRFM1hFS1hkNlA0OEdrUklYWnJERTlBVFlkeXFCZUtsWUxUUXI5ZGZ0SkRwb09NTlJYUTFjcTAyS3hFbS9wMVkzcDROUUozSGlCVTlEYlpOY3ozSGFFaXFpWU03RlhnbU5PdlJKSGVtVzdjYlpzbUZCK0ZZM0tUTlVLZlY1UzFOd2pkam5ZZkFFamZYbG9aZ01BQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["first_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["last_name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["email"],"name":[4],"type":["chr"],"align":["left"]},{"label":["team_id"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"Tabby","3":"Lesley","4":"tlesley0@shinystat.com","5":"4","_rn_":"1"},{"1":"2","2":"Wallie","3":"Edson","4":"NA","5":"1","_rn_":"2"},{"1":"3","2":"Bunnie","3":"Di Maria","4":"bdimaria2@list-manage.com","5":"3","_rn_":"3"},{"1":"1","2":"Tabby","3":"Lesley","4":"tlesley0@shinystat.com","5":"4","_rn_":"4"},{"1":"2","2":"Wallie","3":"Edson","4":"NA","5":"1","_rn_":"5"},{"1":"3","2":"Bunnie","3":"Di Maria","4":"bdimaria2@list-manage.com","5":"3","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubnJvdyhkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>nrow(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDZcbiJ9 -->
+<pre><code>[1] 6</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0aGlzIHRpbWUgdXNlIHRoZSBkYlNlbmRRdWVyeSgpIGZ1bmN0aW9uXG5yZXN1bHRfc2V0IDwtIGRiU2VuZFF1ZXJ5KGNvbm4gPSBteV9kYl9jb25uZWN0aW9uLCBzdGF0ZW1lbnQgPSBcIlNFTEVDVCAqIEZST00gcHVibGljLmVtcGxveWVlc1wiKVxuXG4jIHdoYXQgY2xhc3MgZG9lcyB0aGlzIHJldHVybj9cbmNsYXNzKHJlc3VsdF9zZXQpXG5gYGAifQ== -->
+<pre class="r"><code># this time use the dbSendQuery() function
+result_set &lt;- dbSendQuery(conn = my_db_connection, statement = &quot;SELECT * FROM public.employees&quot;)
+
+# what class does this return?
+class(result_set)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiUG9zdGdyZVNRTFJlc3VsdFwiXG5hdHRyKCxcInBhY2thZ2VcIilcblsxXSBcIlJQb3N0Z3JlU1FMXCJcbiJ9 -->
+<pre><code>[1] &quot;PostgreSQLResult&quot;
+attr(,&quot;package&quot;)
+[1] &quot;RPostgreSQL&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlyc3RfMTAgPC0gZGJGZXRjaChyZXMgPSByZXN1bHRfc2V0LCBuID0gMTApXG5maXJzdF8xMFxuYGBgIn0= -->
+<pre class="r"><code>first_10 &lt;- dbFetch(res = result_set, n = 10)
+first_10</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6NSwibnJvdyI6Nn0sInJkZiI6Ikg0c0lBQUFBQUFBQUE2MVNUVXZEUUJDZHBOM1VCSlNDSUhqekR5VDRnZUN4U1BXa0Y2bm9yVXlTYmJ1NDJaVHNGdTNOWDk2NnU5MnRKaWNGQTV2TXZKazNIeS83Tkg2OVNsNFRBT2hCTDlKdm9rMGd6NVA3OUFhZ0gyb25nRDdFNXZ1aHc4Y21xcytoUHBFTkFvU1czYmFITnI0amtnbm0rZG81MFF0eXpxajNibGRDN0wxZkpMWXJSdzlVY3VvWjVLNlV0WERPd1ppZFBXTEQ4QytwN2Vvbmlsdk8rVWd1bUZoTGhTb3I2a3BINHExK1hOWnBYckxLc0M5SG5FbVZWaWh3VG0zaVA1WDVWcnZ2Vk82MTdkWnZJZ0lyS3QwcXhJRWhLNTJWekZnajFkUWtPU1RtMkFZSXJaQng1d3dVeFdxcTZlMHVjVk8vWjc2VEdTLzhCUHRFM1hFS1hkNlA0OEdrUklYWnJERTlBVFlkeXFCZUtsWUxUUXI5ZGZ0SkRwb09NTlJYUTFjcTAyS3hFbS9wOVlYcDROUUozSGlCVTlEYlpOY3ozSGFFaXFpWU03RlhnbU5PdlJKSGVtVzdjYlpzbUZCK0ZZM0tUTlVLZlY1UzFOd2pkam5ZZkFGM2Yya1JaZ01BQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["first_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["last_name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["email"],"name":[4],"type":["chr"],"align":["left"]},{"label":["team_id"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"Tabby","3":"Lesley","4":"tlesley0@shinystat.com","5":"4","_rn_":"1"},{"1":"2","2":"Wallie","3":"Edson","4":"NA","5":"1","_rn_":"2"},{"1":"3","2":"Bunnie","3":"Di Maria","4":"bdimaria2@list-manage.com","5":"3","_rn_":"3"},{"1":"1","2":"Tabby","3":"Lesley","4":"tlesley0@shinystat.com","5":"4","_rn_":"4"},{"1":"2","2":"Wallie","3":"Edson","4":"NA","5":"1","_rn_":"5"},{"1":"3","2":"Bunnie","3":"Di Maria","4":"bdimaria2@list-manage.com","5":"3","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5uZXh0XzEwIDwtIGRiRmV0Y2gocmVzID0gcmVzdWx0X3NldCwgbiA9IDEwKVxubmV4dF8xMFxuYGBgIn0= -->
+<pre class="r"><code>
+next_10 &lt;- dbFetch(res = result_set, n = 10)
+next_10</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MCwibnJvdyI6MH0sInJkZiI6Ikg0c0lBQUFBQUFBQUEyMVAyd3JDTUF6TkxwMnNNQm40SFJ1SUNINkErQUdpc05lNlZSM09kblFkK3ZYVHRLNFBqdVdoVGM3SlNYS08rMkpEQ3dvQUFRUVJ2Z1JUSU9mVElkc0JoRDRXSG9RUW0vK045QXBzL0JGRXNDZnZNRWxueUZqSlYrNGFramwxMmJET3FSMUlLNlpaZmxXb3cycVlTQmF5MWJVVUtQTE5QV1FpOXRRRVNIdGhMcWl5OHQ2TFI3WmRtdzJXLzBVeW41dWQvbWVjUmNaWkVSZTNXbkIzZk1NdXZCbUxKVnExVHZOVzFVSTdLNGgydVphYXVUNWF5c1loMWh3TVg0M3BOK0NIQVFBQSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[],"data":[],"options":{"columns":{"min":{},"max":[10],"total":[0]},"rows":{"min":[10],"max":[10],"total":[0]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIHRvIGdldCBhbGwgcmVtYWluaW5nIHJlY29yZHMgaW4gcmVzdWx0c19zZXQsIHNldCBuIHRvIC0xXG5hbGxfcmVtYWluaW5nIDwtIGRiRmV0Y2gocmVzID0gcmVzdWx0X3NldCwgbiA9IC0xKVxuIyBleHBlY3QgOTgwIHJlY29yZHM6IDEwMDAgbWludXMgdGhlIDIwIHdlIGhhdmUgZmV0Y2hlZCBhbHJlYWR5XG5ucm93KGFsbF9yZW1haW5pbmcpXG5gYGAifQ== -->
+<pre class="r"><code>
+# to get all remaining records in results_set, set n to -1
+all_remaining &lt;- dbFetch(res = result_set, n = -1)
+# expect 980 records: 1000 minus the 20 we have fetched already
+nrow(all_remaining)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDBcbiJ9 -->
+<pre><code>[1] 0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBvbmNlIHdlIGhhdmUgYWxsIHRoZSByZXN1bHRzIHdlIHdhbnQsIGNsZWFyIHRoZSByZXN1bHRfc2V0XG5kYkNsZWFyUmVzdWx0KHJlcyA9IHJlc3VsdF9zZXQpXG5gYGAifQ== -->
+<pre class="r"><code># once we have all the results we want, clear the result_set
+dbClearResult(res = result_set)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFRSVUVcbiJ9 -->
+<pre><code>[1] TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="i-can-only-see-6-resultswhich-are-duplicated-form-the-3-i-manually-entered" class="section level1">
+<h1>I can only see 6 results(which are duplicated form the 3 I manually entered)</h1>
+<p>However U can see there are 200 antries who have 1] “id” “first_name” “last_name” “email” “team_id”</p>
+<p>#There are 60 entries where employees have entered comments.</p>
+<p>#There are 11 entries for teams.</p>
+<p>Now attempt to create full names entry for the table</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSB1c2UgQ09OQ0FUKCkgdG8gam9pbiBmaXJzdF9uYW1lIHRvIGxhc3RfbmFtZSwgd2l0aCBhIHNwYWNlIGluIGJldHdlZW5cbi0tIEFTIGZ1bGxfbmFtZSBzZXRzIHVwIGEgY29sdW1uIGFsaWFzXG5cblNFTEVDVCBcbiAgaWQsIFxuICBmaXJzdF9uYW1lLCBcbiAgbGFzdF9uYW1lLCBcbiAgQ09OQ0FUKGZpcnN0X25hbWUsICcgJywgbGFzdF9uYW1lKSBBUyBmdWxsX25hbWUgXG5GUk9NIGVtcGxveWVlc1xuYGBgIn0= -->
+<pre class="sql"><code>-- use CONCAT() to join first_name to last_name, with a space in between
+-- AS full_name sets up a column alias
+
+SELECT 
+  id, 
+  first_name, 
+  last_name, 
+  CONCAT(first_name, ' ', last_name) AS full_name 
+FROM employees</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6W10sInJkZiI6Ikg0c0lBQUFBQUFBQUE1MVJ5dzZDTUJCY2dUWkNNSnI0QS8wQnVYanhiTkNUWGd4R2I2WUlKRTBxSkR5aTN2eHlZeW10c1p6VUpsdDJabmVHQ2V6QzQ5dzdlZ0JnZzQzRmpVUUxhQit0WndzQXh4SmdBQTY0N2ZNbXhsUFJPS0pHb3JBY0FsaFNiZllUT2UrRUtLSnhmRmNBSHlqbkxOVm8yZVQ1RzMyeGFEcmpUVnJ4VkN2UUtxbUtYSUZoeU1pV2xveitzbXE2K3pJT01ZUitsNHA4NnNkZE50Sjc0OTl5ODdPam5GN1NTa1Z6RkdteFJIVmV4c3FxUHJWTGluRTU3UkZadzNsSG1OWnVXVndEYmQvK1Vlc0I4dUIraHJQdzFCazA2U1cwcGtGV1NsOTR0dlVDWVNnSnRVNENBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["int"],"align":["right"]},{"label":["first_name"],"name":[2],"type":["chr"],"align":["left"]},{"label":["last_name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["full_name"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Tabby","3":"Lesley","4":"Tabby Lesley"},{"1":"2","2":"Wallie","3":"Edson","4":"Wallie Edson"},{"1":"3","2":"Bunnie","3":"Di Maria","4":"Bunnie Di Maria"},{"1":"1","2":"Tabby","3":"Lesley","4":"Tabby Lesley"},{"1":"2","2":"Wallie","3":"Edson","4":"Wallie Edson"},{"1":"3","2":"Bunnie","3":"Di Maria","4":"Bunnie Di Maria"}],"options":{"columns":{"min":{},"max":[10],"total":{}},"rows":{"min":[10],"max":[10],"total":{}},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="section" class="section level1">
+<h1></h1>
+<!-- rnb-text-end -->
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQojIHRoZSBSUG9zdGdyZVNRTCBwYWNrYWdlIGNvbnRhaW5zIHRoZSBzcGVjaWZpYyBkcml2ZXJzIGZvciBjb25uZWN0aW5nIHRvIFBvc3RncmVTUUwgZGF0YWJhc2VzCmxpYnJhcnkoUlBvc3RncmVTUUwpCgojIHdlIG5lZWQgdG8gc291cmNlIGluIG91ciBjcmVkZW50aWFscyBmaWxlCiMgdGhpcyBzaG91bGQgd29yayBmb3IgYWxsIG1hY2hpbmVzCmhvbWVfbG9jYXRpb24gPC0gU3lzLmdldGVudigiSE9NRSIpCmNyZWRlbnRpYWxzX2xvY2F0aW9uIDwtIHBhc3RlMChob21lX2xvY2F0aW9uLCIvY3JlZGVudGlhbHMuUiIpCnNvdXJjZShjcmVkZW50aWFsc19sb2NhdGlvbikKCiMgbmV4dCwgd2UgY3JlYXRlIGEgY29ubmVjdGlvbiB0byB0aGUgZGF0YWJhc2UKbXlfZGJfY29ubmVjdGlvbiA8LSBkYkNvbm5lY3QoZHJ2ID0gUG9zdGdyZVNRTChtYXguY29uID0gMSksIHVzZXIgPSBwb3N0Z3Jlc3FsX3VzZXJuYW1lLCBwYXNzd29yZCA9IHBvc3RncmVzcWxfcGFzc3dvcmQsIGRibmFtZSA9ICdhY21lX2VtcGxveWVlcycsIGhvc3QgPSAnbG9jYWxob3N0JykKCiMgbm93IHRoYXQgd2UndmUgdXNlZCB0aGUgdXNlcm5hbWUgYW5kIHBhc3N3b3JkIHRvIGNyZWF0ZSBhIGRiIGNvbm5lY3Rpb24sIHdlIGNhbiBkZWxldGUgdGhlbSBmcm9tIGdsb2JhbCBzY29wZQpybShwb3N0Z3Jlc3FsX3VzZXJuYW1lLCBwb3N0Z3Jlc3FsX3Bhc3N3b3JkKQpgYGAKCmBgYHtyfQpkYl9jb25uZWN0CmBgYAoKYGBge3J9CmRiTGlzdFRhYmxlcyhjb25uID0gbXlfZGJfY29ubmVjdGlvbikKYGBgCgpgYGB7cn0KIyBub3RlIHJlY3VycmluZyBwYXR0ZXJuLCBhbHdheXMgcGFzcyBpbiB0aGUgY29ubmVjdGlvbiBvYmplY3QgYWxvbmcgd2l0aCBhbnkgb3RoZXIgcmVxdWlyZWQgYXJndW1lbnRzCmRiTGlzdEZpZWxkcyhjb25uID0gbXlfZGJfY29ubmVjdGlvbiwgbmFtZSA9ICJlbXBsb3llZXMiKQpgYGAKCmBgYHtyfQojIHRoZSBwYXR0ZXJuIGFnYWluISBUYWtlcyBpbiBjb25uZWN0aW9uIG9iamVjdCBhbmQgYSBzdHJpbmcgY29udGFpbmluZyBTUUwgY29tbWFuZApkYXRhIDwtIGRiR2V0UXVlcnkoY29ubiA9IG15X2RiX2Nvbm5lY3Rpb24sIHN0YXRlbWVudCA9ICJTRUxFQ1QgKiBGUk9NIGVtcGxveWVlcyIpCgojIHdoYXQgY2xhc3MgZG9lcyB0aGlzIHJldHVybj8KY2xhc3MoZGF0YSkKCiMgY29udGVudHMgYW5kIHNpemUKaGVhZChkYXRhKQpucm93KGRhdGEpCmBgYAoKCgpgYGB7cn0KIyB0aGlzIHRpbWUgdXNlIHRoZSBkYlNlbmRRdWVyeSgpIGZ1bmN0aW9uCnJlc3VsdF9zZXQgPC0gZGJTZW5kUXVlcnkoY29ubiA9IG15X2RiX2Nvbm5lY3Rpb24sIHN0YXRlbWVudCA9ICJTRUxFQ1QgKiBGUk9NIHB1YmxpYy5lbXBsb3llZXMiKQoKIyB3aGF0IGNsYXNzIGRvZXMgdGhpcyByZXR1cm4/CmNsYXNzKHJlc3VsdF9zZXQpCgpmaXJzdF8xMCA8LSBkYkZldGNoKHJlcyA9IHJlc3VsdF9zZXQsIG4gPSAxMCkKZmlyc3RfMTAKCm5leHRfMTAgPC0gZGJGZXRjaChyZXMgPSByZXN1bHRfc2V0LCBuID0gMTApCm5leHRfMTAKCiMgdG8gZ2V0IGFsbCByZW1haW5pbmcgcmVjb3JkcyBpbiByZXN1bHRzX3NldCwgc2V0IG4gdG8gLTEKYWxsX3JlbWFpbmluZyA8LSBkYkZldGNoKHJlcyA9IHJlc3VsdF9zZXQsIG4gPSAtMSkKIyBleHBlY3QgOTgwIHJlY29yZHM6IDEwMDAgbWludXMgdGhlIDIwIHdlIGhhdmUgZmV0Y2hlZCBhbHJlYWR5Cm5yb3coYWxsX3JlbWFpbmluZykKCiMgb25jZSB3ZSBoYXZlIGFsbCB0aGUgcmVzdWx0cyB3ZSB3YW50LCBjbGVhciB0aGUgcmVzdWx0X3NldApkYkNsZWFyUmVzdWx0KHJlcyA9IHJlc3VsdF9zZXQpCmBgYAoKIyBJIGNhbiBvbmx5IHNlZSA2IHJlc3VsdHMod2hpY2ggYXJlIGR1cGxpY2F0ZWQgZm9ybSB0aGUgMyBJIG1hbnVhbGx5IGVudGVyZWQpCkhvd2V2ZXIgVSBjYW4gc2VlIHRoZXJlIGFyZSAyMDAgYW50cmllcyB3aG8gaGF2ZSAxXSAiaWQiICAgICAgICAgImZpcnN0X25hbWUiICJsYXN0X25hbWUiICAiZW1haWwiICAgICAgInRlYW1faWQiIAoKI1RoZXJlIGFyZSA2MCBlbnRyaWVzIHdoZXJlIGVtcGxveWVlcyBoYXZlIGVudGVyZWQgY29tbWVudHMuCgojVGhlcmUgYXJlIDExIGVudHJpZXMgZm9yIHRlYW1zLgoKTm93IGF0dGVtcHQgdG8gY3JlYXRlIGZ1bGwgbmFtZXMgZW50cnkgZm9yIHRoZSB0YWJsZQoKYGBge3NxbCBjb25uZWN0aW9uPWRiX2Nvbm5lY3R9Ci0tIHVzZSBDT05DQVQoKSB0byBqb2luIGZpcnN0X25hbWUgdG8gbGFzdF9uYW1lLCB3aXRoIGEgc3BhY2UgaW4gYmV0d2VlbgotLSBBUyBmdWxsX25hbWUgc2V0cyB1cCBhIGNvbHVtbiBhbGlhcwoKU0VMRUNUIAogIGlkLCAKICBmaXJzdF9uYW1lLCAKICBsYXN0X25hbWUsIAogIENPTkNBVChmaXJzdF9uYW1lLCAnICcsIGxhc3RfbmFtZSkgQVMgZnVsbF9uYW1lIApGUk9NIGVtcGxveWVlcwpgYGAKCiMKCgoK</div>
 
 
 

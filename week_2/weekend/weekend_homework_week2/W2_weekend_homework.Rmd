@@ -3,3 +3,95 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+
+```{r}
+# the RPostgreSQL package contains the specific drivers for connecting to PostgreSQL databases
+library(RPostgreSQL)
+
+# we need to source in our credentials file
+# this should work for all machines
+home_location <- Sys.getenv("HOME")
+credentials_location <- paste0(home_location,"/credentials.R")
+source(credentials_location)
+
+# next, we create a connection to the database
+my_db_connection <- dbConnect(drv = PostgreSQL(max.con = 1), user = postgresql_username, password = postgresql_password, dbname = 'acme_employees', host = 'localhost')
+
+# now that we've used the username and password to create a db connection, we can delete them from global scope
+rm(postgresql_username, postgresql_password)
+```
+
+```{r}
+db_connect
+```
+
+```{r}
+dbListTables(conn = my_db_connection)
+```
+
+```{r}
+# note recurring pattern, always pass in the connection object along with any other required arguments
+dbListFields(conn = my_db_connection, name = "employees")
+```
+
+```{r}
+# the pattern again! Takes in connection object and a string containing SQL command
+data <- dbGetQuery(conn = my_db_connection, statement = "SELECT * FROM employees")
+
+# what class does this return?
+class(data)
+
+# contents and size
+head(data)
+nrow(data)
+```
+
+
+
+```{r}
+# this time use the dbSendQuery() function
+result_set <- dbSendQuery(conn = my_db_connection, statement = "SELECT * FROM public.employees")
+
+# what class does this return?
+class(result_set)
+
+first_10 <- dbFetch(res = result_set, n = 10)
+first_10
+
+next_10 <- dbFetch(res = result_set, n = 10)
+next_10
+
+# to get all remaining records in results_set, set n to -1
+all_remaining <- dbFetch(res = result_set, n = -1)
+# expect 980 records: 1000 minus the 20 we have fetched already
+nrow(all_remaining)
+
+# once we have all the results we want, clear the result_set
+dbClearResult(res = result_set)
+```
+
+# I can only see 6 results(which are duplicated form the 3 I manually entered)
+However U can see there are 200 antries who have 1] "id"         "first_name" "last_name"  "email"      "team_id" 
+
+#There are 60 entries where employees have entered comments.
+
+#There are 11 entries for teams.
+
+Now attempt to create full names entry for the table
+
+```{sql connection=db_connect}
+-- use CONCAT() to join first_name to last_name, with a space in between
+-- AS full_name sets up a column alias
+
+SELECT 
+  id, 
+  first_name, 
+  last_name, 
+  CONCAT(first_name, ' ', last_name) AS full_name 
+FROM employees
+```
+
+#
+
+
+
