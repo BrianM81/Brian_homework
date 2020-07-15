@@ -1,0 +1,8 @@
+"0","# tidy the description data"
+"0","all_descriptions <- face_descriptions_long_sep%>%"
+"0","  pivot_longer(cols = ends_with(""observation""),"
+"0","           names_to = ""main_observation"","
+"0","          values_to = ""result"")      "
+"0","            "
+"0","# view the data "
+"0","head(all_descriptions, 10)"

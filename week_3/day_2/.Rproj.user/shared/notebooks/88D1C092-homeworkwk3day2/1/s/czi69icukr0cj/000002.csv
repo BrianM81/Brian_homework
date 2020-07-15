@@ -1,0 +1,12 @@
+"0","library(tidyverse) #Loading tidyverse"
+"0","library(readr)"
+"0","face_descriptions <- read_csv(""face_descriptions.csv"")"
+"2","Parsed with column specification:
+cols(
+  .default = col_character(),
+  user_id = [32mcol_double()[39m,
+  age = [32mcol_double()[39m
+)
+"
+"2","See spec(...) for full column specifications.
+"

@@ -1,0 +1,8 @@
+"0","# tidy the descriptions data"
+"0","face_descriptions_long <- face_descriptions %>%"
+"0","  pivot_longer(cols = starts_with(""t""), "
+"0","               names_to = ""description"", "
+"0","               values_to = ""observations"")"
+"0",""
+"0","# view the data, first 10 for comparison"
+"0"," head(face_descriptions_long, 10)"

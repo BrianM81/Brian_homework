@@ -1,0 +1,7 @@
+"0","# split the codes and descriptions column "
+"0","face_descriptions_long_sep <- face_descriptions_long %>%"
+"0","  separate(observations, c(""first observation"", ""second observation"", ""third observation""), sep = “\\ “ )"
+"2","Error: unexpected input in:
+""face_descriptions_long_sep <- face_descriptions_long %>%
+  separate(observations, c(""first observation"", ""second observation"", ""third observation""), sep = �""
+"
