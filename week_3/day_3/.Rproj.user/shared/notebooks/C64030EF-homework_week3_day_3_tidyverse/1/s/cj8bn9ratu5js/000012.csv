@@ -1,0 +1,6 @@
+"0","fave_count_pipe <- twitter_data %>%"
+"0","filter(is.na(""data_count"")) %>% "
+"0","  sum(""favorite_count"")"
+"2","Error in FUN(X[[i]], ...) : 
+  only defined on a data frame with all numeric variables
+"

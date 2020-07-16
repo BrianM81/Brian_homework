@@ -1,0 +1,8 @@
+"0","sum_mean_retweets <- twitter_data %>%"
+"0","  select(twitter_data, source, retweet_count, data_count) %>%"
+"0","  group_by(source) %>%"
+"0","  summarise(retweet_count = n()) %>%"
+"0","  mutate(mean(retweet_count)) %>%"
+"0","sum_mean_retweets"
+"2","Error: object 'sum_mean_retweets' of mode 'function' was not found
+"

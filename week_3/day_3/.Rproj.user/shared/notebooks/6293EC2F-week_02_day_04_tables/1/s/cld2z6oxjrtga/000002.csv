@@ -1,0 +1,9 @@
+"0","```sql
+SELECT
+ d.diet_type,
+ COUNT(a.id)
+ FROM animals AS a
+ INNER JOIN diets AS d
+ ON a.diet_id = d.id
+ GROUP BY d.diet_type
+```"

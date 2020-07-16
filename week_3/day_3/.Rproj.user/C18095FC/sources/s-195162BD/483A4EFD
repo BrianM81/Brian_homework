@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1594837418511.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1293157870",
+    "id" : "483A4EFD",
+    "lastKnownWriteTime" : 1594886328,
+    "last_content_update" : 1594886328076,
+    "path" : "~/Codeclan/Brian_homework/week_3/day_3/homework_week3_day_3_tidyverse.Rmd",
+    "project_path" : "homework_week3_day_3_tidyverse.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "122,65",
+        "scrollLine" : "117",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

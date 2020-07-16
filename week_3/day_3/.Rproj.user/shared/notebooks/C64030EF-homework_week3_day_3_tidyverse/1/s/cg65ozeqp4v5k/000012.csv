@@ -1,0 +1,7 @@
+"0","new_count_pipe <- twitter_data %>%"
+"0","select(""favorite_count"", ""media_type"") %>%"
+"0","  group_by(""media_type"")"
+"0","summarise(sum(""favorite_count"")) %>%"
+"0","arrange(desc(""favorite_count""))"
+"2","Error in sum(""favorite_count"") : invalid 'type' (character) of argument
+"

@@ -1,0 +1,7 @@
+"1","Error in postgresqlExecStatement(conn, statement, ...) : 
+  RS-DBI driver: (could not Retrieve the result : ERROR:  syntax error at end of input
+LINE 10: WHERE d.diet =    ---ran out of time typing this up
+                                                            ^
+)
+Failed to execute SQL chunk
+"

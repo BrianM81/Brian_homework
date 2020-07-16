@@ -1,0 +1,9 @@
+"0","```sql
+SELECT 
+ a.*,
+ d.*
+FROM diets AS d
+LEFT JOIN animals AS a
+ON a.diet_id = d.id
+ORDER BY a.diet_id
+```"

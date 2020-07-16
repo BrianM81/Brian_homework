@@ -1,0 +1,20 @@
+"0","more_data <- read_csv(""code_clan_info.csv"")"
+"2","Parsed with column specification:
+cols(
+  tweet_id = [32mcol_double()[39m,
+  status_url = [31mcol_character()[39m,
+  name = [31mcol_character()[39m,
+  location = [31mcol_character()[39m,
+  description = [31mcol_character()[39m,
+  url = [31mcol_character()[39m,
+  protected = [33mcol_logical()[39m,
+  followers_count = [32mcol_double()[39m,
+  friends_count = [32mcol_double()[39m,
+  listed_count = [32mcol_double()[39m,
+  statuses_count = [32mcol_double()[39m,
+  favourites_count = [32mcol_double()[39m,
+  account_created_at = [31mcol_character()[39m,
+  verified = [33mcol_logical()[39m,
+  profile_url = [31mcol_character()[39m
+)
+"

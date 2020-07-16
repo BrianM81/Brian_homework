@@ -1,0 +1,7 @@
+"1","Error in postgresqlExecStatement(conn, statement, ...) : 
+  RS-DBI driver: (could not Retrieve the result : ERROR:  syntax error at or near \"diets\"
+LINE 2: *diets
+         ^
+)
+Failed to execute SQL chunk
+"

@@ -1,0 +1,6 @@
+"0","fave_tweets_pipe <- twitter_data %>% #let's have a look at the highest values"
+"0","  group_by(favorite_count) %>%"
+"0","    summarise(tweet_id = n()) %>%"
+"0","    arrange(desc(favorite_count))"
+"0",""
+"0","fave_tweets_pipe"

@@ -1,0 +1,8 @@
+"0","fave_count_pipe <- twitter_data %>%"
+"0","select(""favorite_count"") %>%"
+"0","sum() "
+"0","fave_count_pipe"
+"1","[1]"
+"1"," 446"
+"1","
+"

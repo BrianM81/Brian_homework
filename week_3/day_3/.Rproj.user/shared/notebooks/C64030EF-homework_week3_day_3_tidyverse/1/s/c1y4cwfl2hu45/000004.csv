@@ -1,0 +1,7 @@
+"0","new_count_pipe <- twitter_data %>%"
+"0","select(""favorite_count"", ""media_type"") %>%"
+"0","  mutate(media_type = replace_na(media_type,“text”))"
+"2","Error: unexpected input in:
+""select(""favorite_count"", ""media_type"") %>%
+  mutate(media_type = replace_na(media_type,�""
+"

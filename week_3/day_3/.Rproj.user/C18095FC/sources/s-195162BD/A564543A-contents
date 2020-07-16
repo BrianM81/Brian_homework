@@ -1,0 +1,184 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(RPostgreSQL)
+
+home_location <- Sys.getenv("HOME")
+credentials_location <- paste0(home_location,"/credentials.R")
+source(credentials_location)
+
+db_connect <- dbConnect(drv = PostgreSQL(), user = postgresql_username, password = postgresql_password, dbname = "zoo", host = "localhost")
+rm(postgresql_username, postgresql_password)
+```
+
+Return all entries in the table animals
+```{sql connection=db_connect}
+SELECT *
+FROM animals
+```
+Also try diets, keepers and care_schedule
+
+Return all entries in the table diets
+```{sql connection=db_connect}
+SELECT *
+FROM diets
+```
+
+Return all entries in the table keepers
+
+```{sql connection=db_connect}
+SELECT *
+FROM keepers
+```
+
+Return all entries in the table care_schedule
+
+```{sql connection=db_connect}
+SELECT *
+FROM care_schedule
+```
+
+"Get a list of all the animals 
+
+```{sql connection=db_connect}
+SELECT *
+FROM animals
+INNER JOIN diets
+ON animals.diet_id = diets.id
+```
+```{sql connection=db_connect}
+SELECT
+animals.name,
+diets.diet_type
+FROM animals
+INNER JOIN diets
+ON animals.diet_id = diets.id
+```
+
+
+
+--Could be
+```{sql connection=db_connect}
+SELECT
+ a.name,
+ d.diet_type
+FROM animals AS d
+ON a.diet_id = d.id
+```
+
+```{sql connection=db_connect}
+SELECT
+*diets
+FROM animals AS a
+INNER JOIN diets AS d
+ON 
+```
+
+```{sql connection=db_connect}
+SELECT
+ d.diet_type,
+ COUNT(a.id)
+ FROM animals AS a
+ INNER JOIN diets AS d
+ ON a.diet_id = d.id
+ GROUP BY d.diet_type
+```
+
+Answer to question
+```{sql connection=db_connect}
+SELECT
+ a.id,
+ a.name,
+ a.age,
+ a.species,
+ d.diet_type
+FROM animals AS a
+INNER JOIN diets AS d
+ON a.diet_id = d.id
+WHERE d.diet =    ---ran out of time typing this up
+```
+
+--all info on animals in zoo and doet if they have one
+
+```{sql connection=db_connect}
+SELECT
+ *
+ FROM animals AS a
+ LEFT JOIN diets AS d
+ ON a.diet_id = d.id
+```
+
+Task = Code and execute a query to perform a similar RIGHT JOIN. How do you interpret the results you see? Discuss with the people around you
+
+
+```{sql connection=db_connect}
+SELECT
+ *
+ FROM animals as a
+ RIGHT JOIN diets AS d
+ ON a.diet_id = d.id
+ ORDER BY a.diet_id
+```
+
+Could do the above as a left join
+```{sql connection=db_connect}
+SELECT 
+ a.*,
+ d.*
+FROM diets AS d
+LEFT JOIN animals AS a
+ON a.diet_id = d.id
+ORDER BY a.diet_id
+```
+
+Now do a "full outer join" (if no matches, give me everything anyway)
+
+```{sql connection=db_connect}
+SELECT
+ *
+FROM animals AS a
+FULL OUTER JOIN diets AS d
+ON a.diet_id = d.id
+```
+
+
+```{sql connection=db_connect}
+SELECT
+ *
+FROM
+  (animals AS a INNER JOIN care_schedule AS cs
+  ON a.id = cs.animal_id)
+INNER JOIN keepers AS k
+ON cs.keeper_id = k.id
+```
+
+Task : How would we change the query above to show only the schedule for keepers looking after Ernest the snake?
+
+
+```{sql connection=db_connect}
+SELECT
+ *
+FROM
+  (animals AS a INNER JOIN care_schedule AS cs
+  ON a.id = cs.animal_id)
+INNER JOIN keepers AS k
+ON cs.keeper_id = k.id
+WHERE a.id = '7' --or could do a.name = 'Ernest'
+```
+
+Finding entries that don't match---handy for finding no matches
+
+```{sql connection=db_connect}
+SELECT
+ a.*
+FROM animals AS a
+LEFT JOIN diets AS d
+ON a.diet_id = d.id
+WHERE d.id IS NULL
+```
+
+--Can write out order as 1,2 rather than say name_id and keeper_id
