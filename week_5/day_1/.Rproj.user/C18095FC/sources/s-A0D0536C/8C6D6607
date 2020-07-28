@@ -7,14 +7,14 @@
     "folds" : "",
     "hash" : "2102731203",
     "id" : "8C6D6607",
-    "lastKnownWriteTime" : 1595923454,
-    "last_content_update" : 1595923454222,
+    "lastKnownWriteTime" : 1595923881,
+    "last_content_update" : 1595923881262,
     "path" : "~/Codeclan/Brian_homework/week_5/day_1/homework_ggplots.Rmd",
     "project_path" : "homework_ggplots.Rmd",
     "properties" : {
         "chunk_output_type" : "inline",
-        "cursorPosition" : "166,107",
-        "scrollLine" : "165",
+        "cursorPosition" : "2,21",
+        "scrollLine" : "0",
         "tempName" : "Untitled1"
     },
     "read_only" : false,
