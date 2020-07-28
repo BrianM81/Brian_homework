@@ -1,0 +1,167 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+Question 1.
+
+Load in the libraries you need, and look at the backpack data. Take note of variable names and dimensions.
+
+#Load the libraries needed
+
+```{r}
+library(ggplot2)
+library(CodeClanData)
+library(tidyverse)
+```
+
+#Look data table
+```{r}
+backpack
+```
+
+#Variable names = backpack_weight, body_weight, ratio, back_problems, major, year, sex, status, units
+Dimensions = 100 rows x 9 columns
+
+Question 2.
+
+What is the distribution of backpack weights that students are carrying? Choose an appropriate graph to show the distribution.
+
+```{r}
+ggplot(backpack) +
+  geom_bar(aes(x = backpack_weight), fill = "light green")
+```
+#The above is a distribtion of count of number of students who have aweight of backpack (unspecified units)
+
+
+Question 3.
+
+Are there differences in backpack weight between sex?
+
+weight of backpack by sex
+```{r}
+count_backpack <- backpack %>%
+  group_by(backpack_weight, sex) %>%
+  summarise(counts = n()) 
+count_backpack
+```
+
+```{r}
+ggplot(backpack) +
+  geom_bar(aes(x = backpack_weight, fill = sex), position = "dodge") + 
+  scale_fill_manual(values = c("pink","light blue"))
+```
+#The above shows distribution of backpack weight vs count (number of students who have this backpack weight). This time sex is included in the graphs
+There is not a huge difference in backpack weights, although bear in mind there are more female students in this data sample. The one outlier, where weight > 30, is from a male student.
+
+Question 4.
+
+What is the relationship between body weight and backpack weight?
+
+```{r}
+ggplot(backpack) +
+  geom_line(aes(x = backpack_weight, y = body_weight), fill = "blue", 
+  alpha = 0.5
+  ) +
+  geom_point(
+    aes(x = backpack_weight, y = body_weight),
+    alpha = 1
+  ) +
+  geom_smooth(
+    aes(x = backpack_weight, y = body_weight)
+  )
+```
+
+#Here we see a plot of backpack weights vs body weight. There are some wild fluctuations, however the overall trend is increase in backpack weight correlates with an increase in body weight.
+
+Question 5.
+
+Is this relationship different between men and women? Choose an appropriate plot and interpret your findings.
+
+```{r}
+ggplot(backpack) +
+  geom_line(aes(x = backpack_weight, y = body_weight, colour = sex), fill = "blue", 
+  alpha = 0.5
+  ) +
+  geom_point(
+    aes(x = backpack_weight, y = body_weight),
+    alpha = 1
+  ) +
+  geom_smooth(
+    aes(x = backpack_weight, y = body_weight)
+  )
+```
+
+#Plot of backpack weight vs body weight showing male and female data separately. There is still a trend of increasing backpack weight to body weight however there is much more fluctauation in the body weight of males.
+
+Question 6.
+
+What proportion of students report back pain?
+
+```{r}
+backpack %>%
+  select(back_problems)%>%
+  sum 
+```
+#Note I could have divided by number of rows but as it is trivially 100, the proportion is 32%
+
+
+Question 7.
+
+Is this proportion different between men and women?
+
+```{r}
+backpack %>%
+  select(back_problems, sex)%>%
+ filter(sex == "Male", back_problems == "1")
+```
+
+# 8 males have back problems
+```{r}
+backpack %>%
+  select(sex) %>%
+filter(sex == "Male") 
+ncol()
+```
+
+The answer is yes. 8/45 males  so 24/55 females, approximately 44% females to 17% males reported back problems
+
+Question 8.
+
+Now you’ve investigated your data separately, create plots to describe the relationship between backpack weight, body weight, gender and reported backpain.
+
+```{r}
+ggplot(backpack) + 
+  aes(x = backpack_weight, y = body_weight, back_problems == 1, colour = sex) +
+  geom_line() +
+  facet_wrap(~ sex, ncol = 2) +
+  labs(
+    y = "Body weight",
+    x = "Backpack weight",
+    title = "Plots of weight vs backpack weight where backpain reported"
+  )
+```
+
+#These are 2 plots side by side of backpack weight vs body weight separated by gender but with the same axes used.
+Observations = In both genders, despite fluctuations, there is a noticaeble correlation where backpack weight increases with body weight.
+There are a few spikes in the data where body weight is higher than usual for the backpack compared with the average. Perhaps this could suggest underlying back pain?
+
+Out of interest, lets look at where backpain is not reported?
+
+```{r}
+ggplot(backpack) + 
+  aes(x = backpack_weight, y = body_weight, back_problems == 0, colour = sex) +
+  geom_line() +
+  facet_wrap(~ sex, ncol = 2) +
+labs(
+    y = "Body weight",
+    x = "Backpack weight",
+    title = "Plots of weight vs backpack weight where no backpain reported"
+  )
+```
+
+#We can see there is very little difference in the graphs, has backpain perhaps not been reported properly?

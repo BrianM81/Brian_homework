@@ -1,0 +1,11 @@
+"0","```r
+ggplot(top_10) +
+  geom_bar(aes(x = team)) +
+  labs(
+    x = \"Team\"
+    y = \"Count\"
+```"
+"1","Error: unexpected symbol in:
+\"    x = \"Team\"
+    y\"
+"

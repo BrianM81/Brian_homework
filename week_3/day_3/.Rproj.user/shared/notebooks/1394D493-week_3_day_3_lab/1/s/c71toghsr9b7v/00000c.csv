@@ -1,0 +1,8 @@
+"0","#August 5th, 2019"
+"0",""
+"0","pattern <- ""[A-Z][a-z]+[0-9]+[0-9]+(th|rd|st), [0-9]{4}"""
+"0",""
+"0","whole_text %>%"
+"0","   str_extract_all(pattern)"
+"2","Error in eval(lhs, parent, parent) : object 'whole_text' not found
+"

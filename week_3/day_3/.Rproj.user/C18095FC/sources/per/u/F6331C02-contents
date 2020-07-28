@@ -1,0 +1,32 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readxl)
+```
+#Reading XL file with multiple sets programmatically
+
+```{r}
+names_sheets <- excel_sheets("data/green_bindle_consulting.xlsx")
+
+names_sheets
+```
+
+#Need dataset for this to work, comes up with [1] "Data1" "Data2"
+
+For loop
+
+```{r}
+all_tabs <- list()
+
+for(this_sheet in name_sheets){
+ all_tabs[[]] <- read_excel("data/green_bindle_consulting.xlsx", sheet = "Data1"))
+}
+```
+
+```{r}
+all_tabs[["Data1"]]
+```
+

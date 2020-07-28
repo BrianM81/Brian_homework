@@ -1,8 +1,8 @@
 {
-    "path" : "~/Codeclan/Brian_homework/week_3/day_3",
+    "path" : "~",
     "sortOrder" : [
         {
-            "ascending" : true,
+            "ascending" : false,
             "columnIndex" : 2
         }
     ]

@@ -1,0 +1,17 @@
+"0","```r
+ggplot(pets, aes(age, weight)) +
+  geom_point(aes(colour = sex), size = 4) +
+  scale_x_continuous(
+    name = \"Age\",
+    breaks = seq(13),
+  ) + 
+  scale_y_continuous(
+    name = \"Weight\",
+    breaks = c(6, 8, 10),
+    labels = c(
+      \"6\" = \"Light\",
+      \"8\" = \"Normal\",
+      \"10\" = \"Heavy\"
+    )
+  )
+```"

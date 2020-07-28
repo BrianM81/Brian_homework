@@ -1,0 +1,6 @@
+"0","```r
+ggplot(whisky) +
+  aes(x = YearFound, fill = Region) +
+  geom_histogram(bins = 30) +
+  coord_flip()
+```"

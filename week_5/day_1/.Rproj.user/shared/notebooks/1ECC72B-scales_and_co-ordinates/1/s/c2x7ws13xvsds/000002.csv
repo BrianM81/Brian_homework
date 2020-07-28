@@ -1,0 +1,11 @@
+"0","```r
+snacks <- data.frame(
+  group = c(\"Cakes\", \"Biscuits\", \"Jaffa Cakes\"),
+  count = c(30, 50, 20)
+)
+ggplot(snacks) + 
+  aes(x = \" \", y = count, fill = group) +
+  geom_bar(width = 0.5, stat = \"identity\") + 
+  xlab(\"biscuits\") +
+  coord_polar(\"y\")
+```"

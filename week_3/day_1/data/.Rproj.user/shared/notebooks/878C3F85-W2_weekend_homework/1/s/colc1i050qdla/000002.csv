@@ -1,0 +1,15 @@
+"0","```r
+# this time use the dbSendQuery() function
+result_set <- dbSendQuery(conn = my_db_connection, statement = \"SELECT * FROM public.employees\")
+
+# what class does this return?
+class(result_set)
+```"
+"1","[1] \"PostgreSQLResult\"
+attr(,\"package\")
+[1] \"RPostgreSQL\"
+"
+"0","```r
+first_10 <- dbFetch(res = result_set, n = 10)
+first_10
+```"

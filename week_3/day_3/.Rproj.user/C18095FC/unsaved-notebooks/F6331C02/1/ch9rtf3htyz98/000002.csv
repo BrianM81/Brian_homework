@@ -1,0 +1,8 @@
+"0","all_tabs <- list()"
+"0",""
+"0","for (this_sheey in name_sheets){"
+"0","  read_excel(""data/green_bindle_consulting.xlsx"", sheet = ""Data1""))"
+"2","Error: unexpected ')' in:
+""for (this_sheey in name_sheets){
+  read_excel(""data/green_bindle_consulting.xlsx"", sheet = ""Data1""))""
+"

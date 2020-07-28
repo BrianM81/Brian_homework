@@ -1,0 +1,7 @@
+"0","```r
+library(ggplot2)
+
+ggplot(ChickWeight) +
+  aes(x = Time, y = weight, group = Chick, colour = Diet) +
+  geom_line() + facet_wrap(~ Diet, ncol =4)
+```"

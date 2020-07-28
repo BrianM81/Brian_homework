@@ -1,0 +1,5 @@
+"0","```r
+ggplot(benefits) +
+  geom_histogram(aes(x = age, fill = sex), col = \"white\") +
+  facet_grid(married ~ dkids, labeller = \"label_both\") #rows ` columns
+```"

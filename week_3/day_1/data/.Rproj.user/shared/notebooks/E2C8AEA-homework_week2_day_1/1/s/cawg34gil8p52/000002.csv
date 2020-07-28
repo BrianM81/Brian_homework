@@ -1,0 +1,5 @@
+"0","library(readr)"
+"0","data_cars <- read.csv('state_income_data')"
+"2","cannot open file 'state_income_data': No such file or directory"
+"2","Error in file(file, ""rt"") : cannot open the connection
+"

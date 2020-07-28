@@ -1,0 +1,4 @@
+"0","count_backpack <- backpack %>%"
+"0","  group_by(backpack_weight, sex) %>%"
+"0","  summarise(counts = n()) "
+"0","count_backpack"

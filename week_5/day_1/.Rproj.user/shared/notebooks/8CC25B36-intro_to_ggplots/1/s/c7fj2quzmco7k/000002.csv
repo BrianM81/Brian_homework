@@ -1,0 +1,10 @@
+"0","```r
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal), size = 4) +
+  geom_text(
+    aes(label = name),
+    nudge_x = 0.5,
+    nudge_y = 0.1,
+  )
+```"

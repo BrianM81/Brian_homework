@@ -1,0 +1,6 @@
+"0","# split the codes and descriptions column "
+"0","face_descriptions_long_sep <- face_descriptions_long %>%"
+"0","  separate(observations, c(""first observation"", ""second observation"", ""third observation""), sep = ""\\ "")"
+"2","Expected 3 pieces. Additional pieces discarded in 81 rows [101, 104, 130, 385, 392, 550, 683, 1383, 1385, 1388, 2010, 2018, 2021, 2034, 2049, 2519, 2568, 3142, 3388, 3393, ...]."
+"2","Expected 3 pieces. Missing pieces filled with `NA` in 9673 rows [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...]."
+"0","head(face_descriptions_long_sep, 10) #Not sure why this isn't working now, it was working earlier?!"

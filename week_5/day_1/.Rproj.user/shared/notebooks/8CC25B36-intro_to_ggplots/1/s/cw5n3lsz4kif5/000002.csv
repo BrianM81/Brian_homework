@@ -1,0 +1,4 @@
+"0","```r
+ggplot(students) + 
+  geom_bar(aes(x = superpower)) #Note geom_bar is not expecting anything from y, just counts occurences
+```"

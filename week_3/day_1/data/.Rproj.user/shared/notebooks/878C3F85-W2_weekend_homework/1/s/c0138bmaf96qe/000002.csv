@@ -1,0 +1,16 @@
+"0","```r
+# the RPostgreSQL package contains the specific drivers for connecting to PostgreSQL databases
+library(RPostgreSQL)
+
+# we need to source in our credentials file
+# this should work for all machines
+home_location <- Sys.getenv(\"HOME\")
+credentials_location <- paste0(home_location,\"/credentials.R\")
+source(credentials_location)
+
+# next, we create a connection to the database
+my_db_connection <- dbConnect(drv = PostgreSQL(max.con = 1), user = postgresql_username, password = postgresql_password, dbname = 'acme_employees', host = 'localhost')
+
+# now that we've used the username and password to create a db connection, we can delete them from global scope
+rm(postgresql_username, postgresql_password)
+```"

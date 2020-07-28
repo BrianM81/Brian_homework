@@ -1,0 +1,5 @@
+"0","```r
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year), position = \"dodge\") +
+  scale_fill_brewer() #Although note the area looks highrr in say, \"fatter\" so maybe misrepresentative,maybe need to change column width
+```"

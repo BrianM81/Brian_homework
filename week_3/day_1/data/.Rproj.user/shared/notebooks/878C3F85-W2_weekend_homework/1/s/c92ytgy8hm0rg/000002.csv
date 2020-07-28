@@ -1,0 +1,11 @@
+"0","```sql
+-- use CONCAT() to join first_name to last_name, with a space in between
+-- AS full_name sets up a column alias
+
+SELECT 
+  id, 
+  first_name, 
+  last_name, 
+  CONCAT(first_name, ' ', last_name) AS full_name 
+FROM employees
+```"

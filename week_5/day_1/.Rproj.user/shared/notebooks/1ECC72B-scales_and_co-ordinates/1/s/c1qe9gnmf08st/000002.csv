@@ -1,0 +1,23 @@
+"0","```r
+library(dplyr)
+```"
+"1","
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:CodeClanData’:
+
+    starwars
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+"
+"0","```r
+# create the percent column
+flatPrices <- flatPrices %>%
+  mutate(percent_change = AvgFlatPrice/AvgFlatPrice[1])
+```"

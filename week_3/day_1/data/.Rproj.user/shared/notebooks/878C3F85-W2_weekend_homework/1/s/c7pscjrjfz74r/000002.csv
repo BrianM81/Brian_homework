@@ -1,0 +1,6 @@
+"0","```r
+# note recurring pattern, always pass in the connection object along with any other required arguments
+dbListFields(conn = my_db_connection, name = \"employees\")
+```"
+"1","[1] \"id\"         \"first_name\" \"last_name\"  \"email\"      \"team_id\"   
+"

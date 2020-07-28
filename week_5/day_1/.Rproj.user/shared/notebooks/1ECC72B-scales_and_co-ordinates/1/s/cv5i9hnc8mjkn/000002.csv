@@ -1,0 +1,6 @@
+"0","```r
+ggplot(pets) +
+  aes(age, weight, colour = sex) +
+  geom_point() +
+  scale_x_continuous(breaks = 1:13)
+```"

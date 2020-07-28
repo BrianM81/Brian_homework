@@ -1,0 +1,6 @@
+"0","```r
+ggplot(whisky) +
+  aes(x = YearFound, y = Capacity, colour = Region) +
+  geom_point() +
+  xlim(1940, 2000)
+```"

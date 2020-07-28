@@ -1,0 +1,11 @@
+"0","```r
+ggplot(pets) +
+  aes(age, weight, colour = sex) +
+  geom_point() +
+  scale_x_continuous(breaks = 1:13) +
+  scale_y_continuous(breaks = c(6, 8, 10), #add labels now
+                     labels = c(\"6\" = \"Small\",
+                                \"8\" = \"Medium\",
+                                \"10\" = \"Large\")
+  )
+```"

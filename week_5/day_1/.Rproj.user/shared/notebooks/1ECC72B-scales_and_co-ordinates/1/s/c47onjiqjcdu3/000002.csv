@@ -1,0 +1,16 @@
+"0","```r
+ggplot(pets) +
+  aes(age, weight, colour = sex) +
+  geom_point() +
+  scale_x_continuous(breaks = c(1:13),
+                     labels = c(\"1\" = \"Baby\",
+                                \"6\" = \"All Grown Up\",
+                                \"10\" = \"Over The Hill\")) +
+  scale_y_continuous(breaks = c(6, 8, 10), #add labels now
+                     labels = c(\"6\" = \"Small\",
+                                \"8\" = \"Medium\",
+                                \"10\" = \"Large\")
+  )
+```"
+"1","Error: `breaks` and `labels` must have the same length
+"

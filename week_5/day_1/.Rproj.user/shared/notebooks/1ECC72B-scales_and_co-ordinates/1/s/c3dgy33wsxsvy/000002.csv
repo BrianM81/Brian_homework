@@ -1,0 +1,7 @@
+"0","```r
+ggplot(flatPrices) +
+  aes(x = Date, y = AvgFlatPrice) +
+  geom_line() +
+  ylab(\"average flat price \n\") +
+  scale_y_continuous(labels = scales::dollar_format(prefix = \"£\"))
+```"

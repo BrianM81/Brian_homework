@@ -1,0 +1,5 @@
+"0","```r
+ggplot(ChickWeight) +
+  geom_line(aes(x = Time, y = weight, group = Chick, colour = Diet)) +
+  geom_point(aes(x = Time, y = weight, colour = Diet))
+```"

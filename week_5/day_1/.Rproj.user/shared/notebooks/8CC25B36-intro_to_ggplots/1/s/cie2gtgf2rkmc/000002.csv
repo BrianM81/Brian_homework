@@ -1,0 +1,11 @@
+"0","```r
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarise(counts = n())
+
+count_data %>%
+  ggplot() +geom_bar(aes(x = superpower, y =counts, fill = school_year)) +
+  scale_fill_brewer()
+```"
+"1","Error: stat_count() can only have an x or y aesthetic.
+"

@@ -1,0 +1,14 @@
+"0","```r
+ggplot(ChickWeight) +
+  geom_line(
+    aes(x = Time, y = weight, group = Chick, colour = Diet),
+    alpha = 0.25
+  ) +
+  geom_point(
+  aes(x = Time, y = weight, colour = Diet),
+  alpha = 0.5
+  ) +
+  geom_smooth(
+    aes(x = Time, y = weight, colour = Diet)
+  )
+```"

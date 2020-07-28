@@ -1,0 +1,5 @@
+"0","```r
+ggplot(benefits) +
+  geom_histogram(aes(x = age), col = \"white\", fill = \"dark green\") +
+  facet_grid(married ~ dkids)
+```"

@@ -1,0 +1,7 @@
+"0","```r
+ top_10 <- olympics_overall_medals %>%
+ arrange(desc(count)) %>%
+ top_n(10)
+```"
+"1","Selecting by count
+"

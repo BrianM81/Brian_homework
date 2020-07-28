@@ -1,0 +1,5 @@
+"0","```r
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  scale_fill_brewer()  #Package called brewer is more \"professional\" looking
+```"

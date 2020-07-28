@@ -1,0 +1,17 @@
+"0","```r
+library(ggplot2)
+```"
+"1","Registered S3 method overwritten by 'dplyr':
+  method           from
+  print.rowwise_df     
+"
+"0","```r
+library(CodeClanData)
+```"
+"1","
+Attaching package: ‘CodeClanData’
+
+The following object is masked from ‘package:datasets’:
+
+    volcano
+"

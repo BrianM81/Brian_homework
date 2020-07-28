@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1594739104269.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1557484504",
+    "id" : "1EB5AEE0",
+    "lastKnownWriteTime" : 1594805861,
+    "last_content_update" : 1594805861156,
+    "path" : "~/Codeclan/Brian_homework/week_3/day_2/homeworkwk3day2.Rmd",
+    "project_path" : "homeworkwk3day2.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "110,0",
+        "last_setup_crc32" : "195162BD7df7c530",
+        "scrollLine" : "104",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

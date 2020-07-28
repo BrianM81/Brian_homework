@@ -1,0 +1,49 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readxl)
+```
+#Reading XL file with multiple sets programmatically
+
+```{r}
+names_sheets <- excel_sheets("data/green_bindle_consulting.xlsx")
+
+names_sheets
+```
+
+#Need dataset for this to work, comes up with [1] "Data1" "Data2"..."Data8"
+
+**For loop
+
+```{r}
+all_tabs <- list()
+
+for(this_sheet in name_sheets){
+ all_tabs[[]] <- read_excel("data/green_bindle_consulting.xlsx", sheet = "Data1"))
+}
+```
+
+```{r}
+all_tabs[["Data1"]]
+```
+
+#Should bring up table here **Functional programming
+
+```{r}
+#lapplly() is base R functional programming
+# purrr is the tidyverse equivalent
+all_tabs <- lapply(names_sheets, function(this_sheet) #list apply function read_excel1("data/green_bindle_consulting.xlsx",
+sheet = this_sheet))
+names(all_tabs) <-names_sheets
+
+str(all_tabs)
+```
+

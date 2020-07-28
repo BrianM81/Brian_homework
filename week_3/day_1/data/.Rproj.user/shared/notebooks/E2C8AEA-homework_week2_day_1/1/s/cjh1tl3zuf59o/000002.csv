@@ -1,0 +1,4 @@
+"0","message_words <- unlist(strsplit(cleaned_message, split = "" "", fixed = TRUE))"
+"2","Error in strsplit(cleaned_message, split = "" "", fixed = TRUE) : 
+  object 'cleaned_message' not found
+"

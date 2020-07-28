@@ -1,0 +1,15 @@
+"0","```r
+
+# to get all remaining records in results_set, set n to -1
+all_remaining <- dbFetch(res = result_set, n = -1)
+# expect 980 records: 1000 minus the 20 we have fetched already
+nrow(all_remaining)
+```"
+"1","[1] 0
+"
+"0","```r
+# once we have all the results we want, clear the result_set
+dbClearResult(res = result_set)
+```"
+"1","[1] TRUE
+"

@@ -1,0 +1,7 @@
+"0","```r
+ggplot(top_10) +
+  geom_bar(aes(x = team, fill = medal)) +
+  scale_fill_brewer(palette = \"Pastel4\")
+```"
+"1","Unknown palette Pastel4
+"

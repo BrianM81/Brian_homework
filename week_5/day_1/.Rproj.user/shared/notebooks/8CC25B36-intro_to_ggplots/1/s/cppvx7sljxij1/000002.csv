@@ -1,0 +1,14 @@
+"0","```r
+ggplot(students) +
+  geom_point(aes(x = height_cm, y = reaction_time, colour = superpower, )) +
+  labs(
+    x = \"Height\",
+    y = \"Reaction time\",
+    title = \"Scatter graph of reaction time vs height\",
+    subtitle = \"Information filled by Superpower\",
+    fill = \"School Year\"
+  ) +
+  scale_fill_brewer(palette = \"Pastel4\")
+```"
+"1","Unknown palette Pastel4
+"

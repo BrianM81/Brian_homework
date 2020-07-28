@@ -1,0 +1,2 @@
+"0","ggplot(backpack) +"
+"0","  geom_bar(aes(x = backpack_weight), fill = ""light green"")"

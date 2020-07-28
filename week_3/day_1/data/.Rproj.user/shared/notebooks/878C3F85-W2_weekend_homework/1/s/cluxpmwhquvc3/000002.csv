@@ -1,0 +1,13 @@
+"0","```r
+# the pattern again! Takes in connection object and a string containing SQL command
+data <- dbGetQuery(conn = my_db_connection, statement = \"SELECT * FROM employees\")
+
+# what class does this return?
+class(data)
+```"
+"1","[1] \"data.frame\"
+"
+"0","```r
+# contents and size
+head(data)
+```"

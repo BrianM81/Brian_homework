@@ -1,0 +1,5 @@
+"0","```r
+ggplot(benefits) +
+  geom_histogram(aes(x = age), col = \"white\", fill = \"dark green\") +
+  facet_wrap(~ sex, ncol = 2, scales = \"free_y\")
+```"

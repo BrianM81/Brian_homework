@@ -1,0 +1,7 @@
+"0","```r
+ggplot(flatPrices) +
+  aes(x = Date, y = percent_change) +
+  geom_line() + 
+  scale_y_continuous(labels = scales::percent) +
+  ylab(\"percent change relative to start \n\")
+```"

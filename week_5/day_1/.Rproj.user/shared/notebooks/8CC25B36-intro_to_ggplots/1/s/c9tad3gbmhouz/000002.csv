@@ -1,0 +1,7 @@
+"0","```r
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  scale_fill_brewer(palette = \"Pastel4\") #Here you can find your own you are happy with
+```"
+"1","Unknown palette Pastel4
+"

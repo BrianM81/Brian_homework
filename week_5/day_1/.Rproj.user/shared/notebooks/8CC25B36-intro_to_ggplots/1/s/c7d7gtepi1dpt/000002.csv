@@ -1,0 +1,6 @@
+"0","```r
+ggplot(students) +
+  aes(x = Time, y = weight, colour = Diet) +
+  geom_line(
+    aes(group = Chick),
+```"

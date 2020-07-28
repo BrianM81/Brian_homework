@@ -1,0 +1,326 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+aes = aesthetic (links visual attributes in the plot to columns in the tibble)
+
+ggplot(data= something, aes(x = column1, y = column2)) + #add layer on
+  geom_line() #In the brackets here could do col = "red", alpha = 0.5) #Alpha 0 transparent, 1 opaque
+  
+  ggplot2 works in layers. We add layers with + Think of overheaed projector, can look through from above to see what's going on
+  
+```{r}
+library(ggplot2)
+library(CodeClanData)
+```
+  
+  gg plot comes from "Grammar of graphics"
+```{r}
+students
+```
+  
+  Now try this with gg plot
+  
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower)) #Note geom_bar is not expecting anything from y, just counts occurences
+```
+  
+  Could change colour, see below
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower), fill = "light green") #If inside aesthetic, depends on data
+```
+  
+  #Try varying with school year instead
+  
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year))
+```
+  
+  #Now we can add on another layer if we want different colours
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  scale_fill_brewer()  #Package called brewer is more "professional" looking
+```
+  
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  scale_fill_brewer(palette = "Pastel4") #Here you can find your own you are happy with
+```
+  
+ Another way to make this easier for us
+ 
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year), position = "dodge") +
+  scale_fill_brewer() #Although note the area looks highrr in say, "fatter" so maybe misrepresentative,maybe need to change column width
+```
+ 
+```{r}
+ggplot(students) + 
+  geom_bar(aes(x = superpower, fill = school_year), position = "fill") +
+  scale_fill_brewer()
+```
+ 
+ #Now we'll think about statistical transformations in gg plot
+ 
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year), stat = "count") +
+  scale_fill_brewer() #More professional looking
+```
+ 
+ #What if data was pre counted?
+ 
+```{r}
+library(tidyverse)
+
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarise(counts = n())
+
+count_data #Below we see this is "precounted"
+```
+ 
+```{r}
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarise(counts = n())
+
+count_data %>%
+  ggplot() +\geom_bar(aes(x = superpower, y =counts, fill = school_year)) +
+  scale_fill_brewer()
+```
+ #Error message above because it does not know whether to count x or y
+ 
+```{r}
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarise(counts = n())
+
+count_data %>%
+  ggplot() +geom_bar(aes(x = superpower, y =counts, fill = school_year)) +
+  scale_fill_brewer()
+```
+ 
+```{r}
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarise(counts = n())
+
+count_data %>%
+  ggplot() + 
+  geom_col(aes(x = superpower, y =counts, fill = school_year)) +
+  scale_fill_brewer()
+```
+ geom_bar() use when data hasn't been precounted
+ geom_col() use when data has been precounted (this is geom_bar() but with identity stat present)
+ 
+ #Now we'll look at labels
+ 
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  labs(
+    x = "Superpower",
+    y = "Count"
+  )
+```
+ 
+ #We can add on title as well if we like, even a subtitle
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  labs(
+    x = "Superpower",
+    y = "Count",
+    title = "Preferred Superpower by School Year",
+    subtitle = "Data from students around the world",
+    fill = "School Year"
+  )
+```
+ 
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  labs(
+    x = "Superpower",
+    y = "Count",
+    title = "Preferred Superpower by School Year",
+    subtitle = "Data from students around the world",
+    fill = "School Year"
+  ) +
+  scale_fill_brewer()
+```
+ 
+ #lab is labels, xlab(), ylab(), ggtitle()
+ #\n is to move a line?
+ 
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  labs(
+    x = "\n,Superpower",
+    y = "Count",
+    title = "Preferred Sperpower by School Year",
+    subtitle = "Data from students around the world",
+    fill = "School Year"
+  ) +
+  scale_fill_brewer()
+```
+ 
+```{r}
+ top_10 <- olympics_overall_medals %>%
+ arrange(desc(count)) %>%
+ top_n(10)
+```
+```{r}
+top_10
+```
+ 
+#I will create an informative plot that shows the count of medals by team, then give some analysis on it
+
+```{r}
+ggplot(top_10) +
+  geom_bar(aes(x = team)) +
+  labs(
+    x = "Team"
+    y = "Count"
+    title = "Count of medels for team",
+    subtitle = "Top 10 only",
+  ) +
+  scale_fill_brewer()
+```
+
+
+```{r}
+ggplot(top_10) +
+  geom_bar(aes(x = team, fill = medal)) +
+  scale_fill_brewer(palette = "Pastel4")
+```
+
+#When you create a visualisation, keep in mind what it represents, you will likely need it for some storytelling
+
+#Layers
+
+```{r}
+data("ChickWeight")
+
+head(ChickWeight)
+```
+
+Track the weight of each chick in time, colour the line by diet of each chick
+
+```{r}
+ggplot(ChickWeight) +
+  geom_line(aes(x = Time, y = weight, group = Chick, colour = Diet))
+```
+
+#Imagine we want to see the underlying scatter data
+
+```{r}
+ggplot(ChickWeight) +
+  geom_line(aes(x = Time, y = weight, group = Chick, colour = Diet)) +
+  geom_point(aes(x = Time, y = weight, colour = Diet))
+```
+
+#Still looks a bit messy above! Try to empahasise and "de-emphasise" parts of it
+
+```{r}
+ggplot(ChickWeight) +
+  geom_line(
+    aes(x = Time, y = weight, group = Chick, colour = Diet),
+    alpha = 0.25
+  ) +
+  geom_point(
+  aes(x = Time, y = weight, colour = Diet),
+  alpha = 0.5
+  ) +
+  geom_smooth(
+    aes(x = Time, y = weight, colour = Diet)
+  )
+```
+
+#The shadows above are to do with predictions
+#Note above there is a lot of repeitiion in the code.
+Can do aes(x = Time)
+
+```{r}
+ggplot(ChickWeight) +
+  aes(x = Time, y = weight, colour = Diet) +
+  geom_line(
+    aes(group = Chick),
+    alpha = 0.25
+  ) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+#Task 1 
+```{r}
+head(students)
+```
+
+```{r}
+ggplot(students) +
+  aes(x = Time, y = weight, colour = Diet) +
+  geom_line(
+    aes(group = Chick),
+```
+
+#Task 1
+```{r}
+ggplot(students) +
+  geom_point(aes(x = height_cm, y = reaction_time, colour = superpower, )) +
+  labs(
+    x = "Height",
+    y = "Reaction time",
+    title = "Scatter graph of reaction time vs height",
+    subtitle = "Information filled by Superpower",
+    fill = "School Year"
+  ) +
+  scale_fill_brewer(palette = "Pastel4")
+```
+
+Try task 2
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal), size = 4) +
+  geom_text(
+    aes(label = name),
+    nudge_x = 0.5,
+    nudge_y = 0.1,
+  )
+```
+
+#What if we want to save an image?
+
+```{r}
+ggplot(pets) + 
+  aes(x = age, y = weight) +
+  geom_point(aes(colour = sex, shape = animal), size = 4) +
+  geom_text(
+    aes(label = name),
+    nudge_x = 0.5,
+    nudge_y = 0.1,
+  )
+```
+
+#Use ggsave to save last rendered image in ggplot, it will say what to save it in, ie:
+
+```{r}
+ggsave("g1_sav.pdf")
+```
+#Also png is a good alternative to pdf for graphs
+
+

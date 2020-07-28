@@ -1,0 +1,4 @@
+"0","```r
+ggplot(students) + 
+  geom_bar(aes(x = superpower), fill = \"light green\") #If inside aesthetic, depends on data
+```"

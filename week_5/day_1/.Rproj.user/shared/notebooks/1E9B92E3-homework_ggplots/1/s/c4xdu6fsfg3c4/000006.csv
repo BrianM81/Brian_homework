@@ -1,0 +1,3 @@
+"0","ggplot(backpack) +"
+"0","  geom_bar(aes(x = backpack_weight, fill = sex), position = ""dodge"") + "
+"0","  scale_fill_manual(values = c(""pink"",""light blue""))"

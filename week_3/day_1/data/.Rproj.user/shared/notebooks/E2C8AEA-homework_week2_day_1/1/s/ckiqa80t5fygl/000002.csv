@@ -1,0 +1,15 @@
+"0","library(readr)"
+"0","library(CodeClanData)"
+"2","
+Attaching package: ‘CodeClanData’
+
+"
+"2","The following object is masked from ‘package:datasets’:
+
+    volcano
+
+"
+"0","state_income_data <- read.csv(""data/state_income_data.csv"")"
+"2","cannot open file 'data/state_income_data.csv': No such file or directory"
+"2","Error in file(file, ""rt"") : cannot open the connection
+"

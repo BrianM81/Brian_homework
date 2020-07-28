@@ -1,0 +1,13 @@
+"0","```r
+library(tidyverse)
+
+benefits <- benefits %>%
+  mutate(
+    tenure_interval = cut_interval(tenure, 4),
+    tenure_width = cut_width(tenure, 15),
+    tenure_number = cut_number(tenure, 4)
+  )
+
+benefits %>%
+  select(age, tenure, tenure_interval, tenure_width, tenure_number)
+```"

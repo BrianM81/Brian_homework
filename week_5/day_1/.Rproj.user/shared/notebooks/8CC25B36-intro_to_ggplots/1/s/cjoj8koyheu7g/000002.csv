@@ -1,0 +1,12 @@
+"0","```r
+count_data <- students %>%
+  group_by(superpower, school_year) %>%
+  summarise(counts = n())
+
+count_data %>%
+  ggplot() +\geom_bar(aes(x = superpower, y =counts, fill = school_year)) +
+```"
+"1","Error: unexpected input in:
+\"count_data %>%
+  ggplot() +\\"
+"

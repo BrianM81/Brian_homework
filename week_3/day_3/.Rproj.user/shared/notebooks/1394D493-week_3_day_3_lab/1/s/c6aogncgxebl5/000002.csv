@@ -1,0 +1,7 @@
+"0","```r
+pattern <- \"[bB]ig [bB]rother\"
+ whole_text %>%
+ str_count(pattern)
+```"
+"1","[1] 12
+"

@@ -1,0 +1,5 @@
+"0","```r
+ggplot(benefits) +
+  geom_histogram(aes(x = age), col = \"white\") +
+  facet_wrap(~ tenure_width)
+```"

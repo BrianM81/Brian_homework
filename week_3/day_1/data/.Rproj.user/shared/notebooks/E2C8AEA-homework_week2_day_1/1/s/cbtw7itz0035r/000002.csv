@@ -1,0 +1,29 @@
+"0","```r
+#import library \"readr\"
+library(readr)
+library(dplyr)
+```"
+"1","Registered S3 method overwritten by 'dplyr':
+  method           from
+  print.rowwise_df     
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:CodeClanData’:
+
+    starwars
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+"
+"0","```r
+#load JSON library too
+library(jsonlite)
+#load library to deal with excel
+library(readxl)
+```"
