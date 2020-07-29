@@ -1,0 +1,181 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+#Load libraries first
+```{r}
+library(ggplot2)
+library(CodeClanData)
+library(tidyverse)
+library(dplyr)
+```
+
+Task - 10 mins
+
+Create a suitable plot for the following three datasets:
+
+late_deliveries
+recovery_times
+fitness_levels
+
+```{r}
+(late_deliveries)
+(recovery_times)
+(fitness_levels)
+```
+
+
+```{r}
+ggplot(late_deliveries) +
+  geom_line(
+  aes(x = day, y = value)) +
+    labs(
+    y = "late delivery value",
+    title = "Plot of late deliveries vs date")
+```
+
+```{r}
+# Dummy data
+late_deliveries <- new_plot(
+  day = as.Date("2015-01-01") - 0:364,
+  value = runif(365) + seq(-140, 224)^2 / 10000
+)
+
+# Most basic bubble plot
+p <- ggplot(data, aes(x=day, y=value)) +
+  geom_line() + 
+  xlab("")
+p          #This was using a similar example online to see if it worked
+```
+
+```{r}
+ggplot(recovery_times, aes(treatment_group, prognosis, colour = recovery)) +
+  geom_point() +
+  scale_colour_gradient(low = "light blue", high = "dark blue")
+```
+
+ggplot(fitness_levels) + 
+  aes(x = child, y = fitness_score, color = group) + 
+  geom_point() + 
+  facet_wrap(~age) + 
+    scale_color_manual(values=c('#E69F00', '#56B4E9'))+
+    labs(title = "Fitness levels of children")
+    
+```{r}
+ggplot(fitness_levels) + 
+  aes(x = group, y = fitness_score, color = child) + 
+  geom_point() + 
+  facet_wrap(~age) + 
+    scale_color_brewer()+
+    labs(title = "Fitness levels of children")
+```
+
+3.2 Connection
+Task - 10 mins
+
+Choose a suitable plot for the following datasets:
+
+blood_pressure
+car_use
+
+```{r}
+(blood_pressure)
+(car_use)
+```
+
+```{r}
+ggplot(blood_pressure) +
+  geom_point(
+  aes(x = daily_saturated_fat_intake_mg, y = systolic_blood_pressure_mm_hg)) +
+  labs(x = "fat intake mg",
+       y = "systolic pressure mmhg",
+   title = "Plot of fat intake vs systolic BP")
+```
+
+
+```{r}
+ggplot(car_use) +
+  geom_point(
+  aes(x = city, y = air_so2_concentration_ppm, colour = population)) +
+  labs(
+   title = "Plot of car sO2 vs city")
+```
+
+3.3 Distribution
+
+Plot the following two datasets.
+
+d20_outcomes
+d20x5_outcomes
+
+```{r}
+(d20_outcomes)
+(d20x5_outcomes)
+```
+
+```{r}
+ggplot(d20_outcomes) +
+  geom_histogram(aes(x = outcome), bins = 200) +
+  coord_flip() +
+  labs(
+   title = "Plot of d20 outcomes vs count")
+```
+
+```{r}
+ggplot(d20x5_outcomes) +
+  geom_histogram(aes(x = outcome), bins = 200) +
+  coord_flip() +
+  labs(
+   title = "Plot of d20x5_outcomes vs count")
+```
+
+3.4 Composition
+
+Make plots to display the data in:
+
+pension_surplus
+pension_liabilities
+
+```{r}
+(pension_surplus)
+(pension_liabilities)
+```
+
+```{r}
+ggplot(pension_surplus) + 
+  aes(x = item, y = balance) +
+  geom_bar(width = 0.5, stat = "identity") + 
+  xlab("pension_surplus") +
+  coord_flip() +
+  labs(
+   title = "Plot of pension surplus vs balance") 
+```
+
+Out of interest, what would a pie chart look like with negative figures?
+
+```{r}
+ ggplot(pension_surplus) + 
+  aes(x =  item, y = balance) +
+  geom_bar(width = 0.5, stat = "identity") + 
+  xlab("pension_surplus") +
+  coord_polar("y")
+```
+
+Try second graph
+
+```{r}
+ggplot(pension_liabilities) + 
+  aes(x = year, y = liability_millions, colour = liability_type) +
+  geom_bar(width = 0.5, stat = "identity") + 
+  xlab("pension_liabilities") +
+  labs(x = "Year",
+       y = "Liability in £m",
+   title = "Plot of pension liabilities vs year")
+```
+  
+  
