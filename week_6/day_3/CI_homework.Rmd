@@ -1,0 +1,111 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+```
+
+
+```{r}
+ames <- read_csv("ames.csv")
+```
+
+```{r}
+clean_ames <- clean_names(ames)
+clean_ames
+```
+
+```{r}
+glimpse(clean_ames)
+```
+
+```{r}
+names(clean_ames)
+```
+
+```{r}
+dim(clean_ames)
+```
+
+```{r}
+clean_ames %>%
+  ggplot(aes(x = lot_area)) +
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+This distribution is not normal. There is a significant count of zero values for area (which should not be the case). Although it look binomial it is skewed to the right.
+
+I'm checking first that all the houses were actually sold
+```{r}
+clean_ames %>%
+  select(order, sale_price) %>%
+arrange(sale_price)
+```
+
+```{r}
+bootstrap_ames <- clean_ames %>%
+  rep_sample_n(size = 500, replace = TRUE, reps = 5000) %>%
+  summarise(mean_lot_area = mean(lot_area))
+bootstrap_ames
+```
+
+```{r}
+bootstrap_ames %>%
+  ggplot(aes(x = mean_lot_area)) +
+  geom_histogram(col = "white", fill = "steel blue", alpha = 0.7)
+```
+
+
+```{r}
+infer_ames <- clean_ames %>%
+  specify(response = lot_area) %>%
+  generate(reps = 5000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+infer_ames
+```
+
+
+```{r}
+infer_ames_95 <- infer_ames %>%
+  get_ci(level = 0.95, type = "percentile")
+infer_ames_95
+```
+
+```{r}
+infer_ames %>%
+  visualise() +
+  shade_confidence_interval(endpoints = infer_ames_95)
+```
+
+```{r}
+infer_ames_99 <- infer_ames %>%
+  get_ci(level = 0.99, type = "percentile")
+infer_ames_99
+```
+
+```{r}
+infer_ames %>%
+  visualise() +
+  shade_confidence_interval(endpoints = infer_ames_99)
+```
+
+We see above in the figures and the graph the CI is wider. Of course, this makes sense as for us to have more confidence there must be a greater range we can choose from.
+
+Lets check point estimate
+
+```{r}
+infer_ames %>%
+  summarise(mean(stat))
+```
+
+Now compare with mean of original sample for completeness
+
+```{r}
+clean_ames %>%
+  summarise(mean(lot_area))
+```
+
