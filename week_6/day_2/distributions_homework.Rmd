@@ -1,0 +1,47 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+library(tidyverse)
+library(prob)
+X20190928_items <- read_csv("20190928-items.csv")
+```
+
+```{r}
+head(X20190928_items)
+```
+
+```{r}
+names(X20190928_items)
+```
+
+```{r}
+dim(X20190928_items)
+```
+
+```{r}
+View(X20190928_items)
+```
+
+Find the brand with the highest numbers of phones in the dataset.
+```{r}
+X20190928_items %>%
+  group_by(brand) %>%
+count()
+```
+
+Samsung has the most mobile phones, 397
+
+
+```{r}
+samsung_sales <- X20190928_items %>% 
+    select(brand, rating) %>% 
+filter(brand == Samsung)
+    samsung_sales
+```
+
+#This is not working, I am trying to see a table of Samsung ratings with counts
+
