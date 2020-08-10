@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1596814361096.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2107808121",
+    "id" : "C7767480",
+    "lastKnownWriteTime" : 1597047048,
+    "last_content_update" : 1597047048209,
+    "path" : "~/Codeclan/Brian_homework/week_6/weekend/weekend_stats_homework.Rmd",
+    "project_path" : "weekend_stats_homework.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "202,9",
+        "scrollLine" : "194",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

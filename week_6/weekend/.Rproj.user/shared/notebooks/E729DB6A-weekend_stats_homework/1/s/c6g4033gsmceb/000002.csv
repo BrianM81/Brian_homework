@@ -1,0 +1,5 @@
+"0","library(tidyverse)"
+"0","library(janitor)"
+"0","library(infer)"
+"2","package ‘infer’ was built under R version 3.6.2"
+"0","data(msleep)"

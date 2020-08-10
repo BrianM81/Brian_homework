@@ -1,0 +1,39 @@
+"0","no_na_vore <- msleep %>%"
+"0","  filter(!is.na(vore)) %>%"
+"0","  glimpse()"
+"1","Observations: 76
+"
+"1","Variables: 11
+"
+"1","$ name         [3m[38;5;246m<chr>[39m[23m ""Cheetah"", ""Owl monkey"", ""Mountain beaver"", ""Greater short-tailed…
+"
+"1",""
+"1","$ genus        [3m[38;5;246m<chr>[39m[23m ""Acinonyx"", ""Aotus"", ""Aplodontia"", ""Blarina"", ""Bos"", ""Bradypus"", …
+"
+"1",""
+"1","$ vore         [3m[38;5;246m<chr>[39m[23m ""carni"", ""omni"", ""herbi"", ""omni"", ""herbi"", ""herbi"", ""carni"", ""car…
+"
+"1",""
+"1","$ order        [3m[38;5;246m<chr>[39m[23m ""Carnivora"", ""Primates"", ""Rodentia"", ""Soricomorpha"", ""Artiodactyl…
+"
+"1",""
+"1","$ conservation [3m[38;5;246m<chr>[39m[23m ""lc"", NA, ""nt"", ""lc"", ""domesticated"", NA, ""vu"", ""domesticated"", ""…
+"
+"1",""
+"1","$ sleep_total  [3m[38;5;246m<dbl>[39m[23m 12.1, 17.0, 14.4, 14.9, 4.0, 14.4, 8.7, 10.1, 3.0, 5.3, 9.4, 10.0…
+"
+"1",""
+"1","$ sleep_rem    [3m[38;5;246m<dbl>[39m[23m NA, 1.8, 2.4, 2.3, 0.7, 2.2, 1.4, 2.9, NA, 0.6, 0.8, 0.7, 1.5, 2.…
+"
+"1",""
+"1","$ sleep_cycle  [3m[38;5;246m<dbl>[39m[23m NA, NA, NA, 0.1333333, 0.6666667, 0.7666667, 0.3833333, 0.3333333…
+"
+"1",""
+"1","$ awake        [3m[38;5;246m<dbl>[39m[23m 11.9, 7.0, 9.6, 9.1, 20.0, 9.6, 15.3, 13.9, 21.0, 18.7, 14.6, 14.…
+"
+"1",""
+"1","$ brainwt      [3m[38;5;246m<dbl>[39m[23m NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, 0.07000, 0.09820, 0.11…
+"
+"1",""
+"1","$ bodywt       [3m[38;5;246m<dbl>[39m[23m 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 14.000, 14.8…
+"

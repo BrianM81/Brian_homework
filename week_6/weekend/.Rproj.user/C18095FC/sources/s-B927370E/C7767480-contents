@@ -1,0 +1,203 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+data(msleep)
+```
+
+Now check a few things about the dataset
+
+```{r}
+glimpse(msleep)
+```
+
+```{r}
+names(msleep)
+```
+
+```{r}
+head(msleep)
+```
+
+So we have a long data frame.
+
+Jabberwockies sleep for around 7 hours a night, on average. Perform an appropriate statistical test to determine whether the mean sleep_total in the sampled population of animal types differs from the typical value for jabberwockies.
+
+```{r}
+ave_sleep <- msleep %>%
+  summarise(mean_sleep = mean(sleep_total))
+ave_sleep
+```
+
+#Average sleep is clearly more than 7 hours a night, assuming the unit of sleep_total is hours.
+
+Ho : avearge rating = 7
+Ha : average rating != 7
+
+```{r}
+null_distribution <- msleep %>%
+  specify(response = sleep_total) %>%
+  hypothesize(null = "point", mu = 7) %>%
+  generate(reps = 10000, type = "bootstrap") %>%
+  calculate(stat = "mean")
+```
+
+Now lets work out the observed statistic, the mean total sleep of animals
+
+
+```{r}
+null_distribution %>%
+  visualise(bins = 30)
+shade_p_value(obs_stat = ave_sleep$mean_sleep, direction = "both")
+```
+
+Finally get the p-value
+
+```{r}
+p_value <- null_distribution %>%
+  get_p_value(obs_stat = ave_sleep, direction = "both")
+p_value
+```
+
+P value is zero, which we'd expect as mean_sleep already worked out to be greater than 10 so the mean sleep total differs in the sample population significantly.
+
+
+Perform an appropriate statistical test to determine whether omnivores sleep for significantly longer than herbivores, on average.
+Note there are some NA values, we need to remove these
+
+
+```{r}
+no_na_vore <- msleep %>%
+  filter(!is.na(vore)) %>%
+  glimpse()
+```
+
+Find prop for omnivores
+
+```{r}
+prop_omni <- no_na_vore %>%
+  group_by(vore) %>%
+  summarise(prop = n()/nrow(no_na_vore)) %>%
+  filter(vore == "omni")
+prop_omni
+```
+
+Find prop for herbivores
+
+```{r}
+prop_herbi <- no_na_vore %>%
+  group_by(vore) %>%
+  summarise(prop = n()/nrow(no_na_vore)) %>%
+  filter(vore == "herbi")
+prop_herbi
+```
+
+Say alpha = 0.05 and H0 : mu_sleep_herbi -mu_sleep_omni = 0
+                     Ha : mu_sleep_herbi -mu_sleep_omni != 0
+                     
+```{r}
+sleep_diff <- no_na_vore %>%
+  select(sleep_total, vore) 
+head(sleep_diff)
+```
+                     
+```{r}
+sleep_diff_herbi <- sleep_diff %>%
+  group_by(vore) %>%
+filter(vore == "herbi") %>%
+  summarise(n = n())
+sleep_diff_herbi
+```
+
+
+```{r}
+sleep_diff_omni <- sleep_diff %>%
+  group_by(vore) %>%
+filter(vore == "omni") %>%
+  summarise(n = n())
+sleep_diff_omni
+```
+
+
+
+```{r}
+null_distribution <- sleep_diff %>% 
+  specify(sleep_total ~ vore) %>% #it is the relationship between sleep and vore we are testing. This can also be written like specify(response = sleep_total, explanatory = vore) 
+  hypothesize(null = "independence") %>% #the null hypothesis is there is no relationship i.e. they are independent
+  generate(reps = 1000, type = "permute") %>% 
+  calculate(stat = "diff in means", order = c("herbi", "omni")) #our sample stat is mean of herbi minus mean of omni so this is the order we specify in the calculate step
+
+head(null_distribution)
+```
+
+#I need to create a mutate column somewhere to subtract omni form herbi, however this is generating errors
+
+
+Perform an appropriate statistical test to determine whether the proportion of domesticated animal types in the population of animal types is greater than 5%.
+
+```{r}
+cons_tidy <- msleep %>%
+  clean_names() %>%
+  filter(!is.na(conservation)) %>%
+  glimpse()
+```
+
+```{r}
+cons_tidy %>%
+  group_by(conservation) %>%
+  summarise(prop = n()/nrow(cons_tidy)) %>%
+  filter(conservation == "domesticated")
+```
+
+
+```{r}
+cons_tidy_prop <- cons_tidy %>%
+  mutate(is_domesticated = ifelse(conservation == "domesticated", "placid", "feral"))
+
+head(cons_tidy_prop)
+```
+
+
+```{r}
+null_distribution <- cons_tidy_prop %>%
+  specify(response = is_domesticated, success = "placid") %>% 
+  hypothesize(null = "point", p = 0.05) %>%
+  generate(reps = 5000, type = "simulate") %>%
+  calculate(stat = "prop") #we specify that the stat is proportion (in the last lesson it was mean)
+
+head(null_distribution)
+```
+
+```{r}
+null_distribution %>%
+  visualise(bins = 30)
+```
+
+```{r}
+observed_stat <- cons_tidy_prop %>% 
+  specify(response = is_domesticated, success = "placid") %>% 
+  calculate(stat = "prop")
+
+observed_stat
+```
+
+```{r}
+null_distribution %>%
+  visualise(bins = 30) + #remembering that it is a '+' here not '%>%' because using ggplot functionality to visualise
+  shade_p_value(obs_stat = observed_stat, direction = "right")
+```
+
+```{r}
+p_value <- null_distribution %>%
+  get_p_value(obs_stat = observed_stat, direction = "right")
+
+p_value
+```
+
+Answer = The proportion of animal types is statistically significantly higher than 5%

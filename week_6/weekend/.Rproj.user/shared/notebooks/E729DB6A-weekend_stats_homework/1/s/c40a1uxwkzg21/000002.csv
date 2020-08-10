@@ -1,0 +1,4 @@
+"0","cons_tidy %>%"
+"0","  group_by(conservation) %>%"
+"0","  summarise(prop = n()/nrow(cons_tidy)) %>%"
+"0","  filter(conservation == ""domesticated"")"

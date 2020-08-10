@@ -1,0 +1,3 @@
+"0","sleep_diff <- no_na_vore %>%"
+"0","  select(sleep_total, vore) "
+"0","head(sleep_diff)"

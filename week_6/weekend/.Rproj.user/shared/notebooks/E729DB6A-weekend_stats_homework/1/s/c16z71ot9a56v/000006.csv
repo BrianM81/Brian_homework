@@ -1,0 +1,3 @@
+"0","ave_sleep <- msleep %>%"
+"0","  summarise(mean_sleep = mean(sleep_total))"
+"0","ave_sleep"

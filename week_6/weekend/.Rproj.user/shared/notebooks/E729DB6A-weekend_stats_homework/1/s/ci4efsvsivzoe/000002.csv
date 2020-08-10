@@ -1,0 +1,5 @@
+"0","observed_stat <- cons_tidy_prop %>% "
+"0","  specify(response = is_domesticated, success = ""placid"") %>% "
+"0","  calculate(stat = ""prop"")"
+"0",""
+"0","observed_stat"

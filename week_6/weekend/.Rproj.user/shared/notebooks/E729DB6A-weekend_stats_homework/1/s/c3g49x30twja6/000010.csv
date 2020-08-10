@@ -1,0 +1,5 @@
+"0","sleep_diff_herbi <- sleep_diff %>%"
+"0","  group_by(vore) %>%"
+"0","filter(vore == ""herbi"") %>%"
+"0","  summarise(n = n())"
+"0","sleep_diff_herbi"

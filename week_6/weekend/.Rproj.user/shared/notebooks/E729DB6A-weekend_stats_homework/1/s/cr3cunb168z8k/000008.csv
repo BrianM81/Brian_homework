@@ -1,0 +1,4 @@
+"0","cons_tidy_prop <- cons_tidy %>%"
+"0","  mutate(is_domesticated = ifelse(conservation == ""domesticated"", ""placid"", ""feral""))"
+"0",""
+"0","head(cons_tidy_prop)"

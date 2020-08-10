@@ -1,0 +1,5 @@
+"0","prop_omni <- no_na_vore %>%"
+"0","  group_by(vore) %>%"
+"0","  summarise(prop = n()/nrow(no_na_vore)) %>%"
+"0","  filter(vore == ""omni"")"
+"0","prop_omni"

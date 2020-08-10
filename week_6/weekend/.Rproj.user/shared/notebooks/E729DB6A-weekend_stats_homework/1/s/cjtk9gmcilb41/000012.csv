@@ -1,0 +1,5 @@
+"0","prop_herbi <- no_na_vore %>%"
+"0","  group_by(vore) %>%"
+"0","  summarise(prop = n()/nrow(no_na_vore)) %>%"
+"0","  filter(vore == ""herbi"")"
+"0","prop_herbi"

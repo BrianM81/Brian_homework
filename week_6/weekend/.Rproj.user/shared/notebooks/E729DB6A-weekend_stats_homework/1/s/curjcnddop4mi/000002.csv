@@ -1,0 +1,7 @@
+"0","null_distribution <- cons_tidy_prop %>%"
+"0","  specify(response = is_domesticated, success = ""placid"") %>% "
+"0","  hypothesize(null = ""point"", p = 0.05) %>%"
+"0","  generate(reps = 5000, type = ""simulate"") %>%"
+"0","  calculate(stat = ""prop"") #we specify that the stat is proportion (in the last lesson it was mean)"
+"0",""
+"0","head(null_distribution)"
