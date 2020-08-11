@@ -206,8 +206,8 @@ Choose an appropriate rolling window and calculate a moving average for your wea
 
 ```{r}
 # calculate a rolling window 
-weather_rolling <- weather %>% 
-  group_by_key() %>% 
+weather_rolling <- weather_ts %>% 
+  group_by_key(origin) %>% 
   mutate(temp_ma = slide_dbl(temp, ~ mean(., na.rm = TRUE), .size = 1000))
 ```
 
@@ -220,4 +220,3 @@ ggplot(weather_rolling) +
 Question 10
 
 Downsample your data so that you plot daily temperature data for each airport, instead of hourly data.
-#need above code to work for this
