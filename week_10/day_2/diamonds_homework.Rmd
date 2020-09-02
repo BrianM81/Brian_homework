@@ -1,0 +1,80 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+1 Load the diamonds.csv data set and undertake an initial exploration of the data. You will find a description of the meanings of the variables on the relevant Kaggle page
+
+```{r}
+diamonds <- read_csv("diamonds.csv")
+summary(diamonds)
+names(diamonds)
+glimpse(diamonds)
+```
+
+2. We expect the carat of the diamonds to be strong correlated with the physical dimensions x, y and z. Use ggpairs() to investigate correlations between these four variables.
+
+```{r}
+diamonds_4_var <- diamonds %>%
+  select(c("carat", "x", "y", "z"))
+glimpse(diamonds_4_var)
+```
+
+
+```{r}
+library(GGally)
+ggpairs(diamonds_4_var)
+```
+
+3 So, we do find significant correlations. Let’s drop columns x, y and z from the dataset, in preparation to use only carat going forward.
+
+```{r}
+diamonds_1_var <- diamonds_4_var %>%
+  select(c("carat"))
+glimpse(diamonds_1_var)
+```
+
+4. We are interested in developing a regression model for the price of a diamond in terms of the possible predictor variables in the dataset.
+Use ggpairs() to investigate correlations between price and the predictors (this may take a while to run, don’t worry, make coffee or something).
+
+```{r}
+diamonds_5_var <- diamonds %>%
+  select(c("price", "carat", "x", "y", "z"))
+glimpse(diamonds_5_var)
+```
+
+```{r}
+ggpairs(diamonds_5_var)
+```
+
+It looks like price increases more with x and carat, although a lot of the data looks lumped together
+
+ii Perform further ggplot visualisations of any significant correlations you find.
+
+```{r}
+diamonds_5_var %>%
+  ggplot(aes(x = x, y = price, group = 1)) + 
+  geom_boxplot()
+```
+
+```{r}
+diamonds_5_var %>%
+  ggplot(aes(x = carat, y = price, group = 1)) + 
+  geom_boxplot()
+```
+
+5. Shortly we may try a regression fit using one or more of the categorical predictors cut, clarity and color, so let’s investigate these predictors:
+Investigate the factor levels of these predictors. How many dummy variables do you expect for each of them?
+
+```{r}
+diamonds %>%
+levels(cut)
+levels(clarity)
+levels(color)
+ #Error below, not sure why?
+```
+
