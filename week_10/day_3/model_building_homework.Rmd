@@ -1,0 +1,99 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(ggiraphExtra)
+library(GGally)
+```
+
+
+```{r}
+kc_house_data <- read_csv("kc_house_data.csv")
+summary(kc_house_data)
+names(kc_house_data)
+glimpse(kc_house_data)
+head(kc_house_data)
+```
+
+Lets take out unnecessary columns
+
+```{r}
+kc_house_trim <- kc_house_data %>%
+  select(-c(id, date, sqft_living15, sqft_lot15, zipcode))
+glimpse(kc_house_trim)
+```
+
+Lets check waterfront
+```{r}
+unique(kc_house_trim$waterfront) #Only 0 and 1, convert to yes or no
+```
+
+Convert watertype to true/false
+```{r}
+kc_house_logical <- kc_house_trim %>%
+  mutate(waterfront = as.logical(waterfront)) %>%
+  mutate(yr_renovated = as.logical(yr_renovated))
+kc_house_logical 
+```
+
+Lets check condition and grade to see the data types
+
+```{r}
+ unique(kc_house_logical$condition)  
+```
+#The above is ordinal data
+
+```{r}
+unique(kc_house_logical$grade) 
+```
+#The above is categorical ordinal
+
+Check for aliased variables using the alias() function
+
+```{r}
+alias( lm(price ~ bedrooms)$kc_house_logical )
+```
+
+Now lets try first predictor
+```{r}
+kc_house_logical  %>%
+  ggpairs(aes(colour = yr_renovated, alpha = 0.5))
+```
+
+Lets try splitting this to numeric/ non numeric to save loading time
+
+```{r}
+houses_tidy_numeric <- kc_house_logical %>%
+  select_if(is.numeric)
+
+houses_tidy_nonnumeric <- kc_house_logical %>%
+  select_if(function(x) !is.numeric(x))
+
+houses_tidy_nonnumeric$price <- kc_house_logical$price
+
+ggpairs(houses_tidy_numeric)
+ggpairs(houses_tidy_nonnumeric)
+```
+
+Try first model
+
+```{r}
+mod1a <- lm(price ~ sqft_lot, data = kc_house_logical)
+mod1a
+```
+
+```{r}
+summary(mod1a)
+```
+
+```{r}
+par(mfrow = c(2, 2)) 
+
+# plot
+plot(mod1a)
+```
+
