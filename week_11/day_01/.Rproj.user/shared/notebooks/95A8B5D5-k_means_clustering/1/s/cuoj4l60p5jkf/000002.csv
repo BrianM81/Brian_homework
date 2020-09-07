@@ -1,0 +1,6 @@
+"0","```r
+arrests <- USArrests %>%
+  janitor::clean_names() %>%
+  select(c(murder, assault))
+arrests
+```"

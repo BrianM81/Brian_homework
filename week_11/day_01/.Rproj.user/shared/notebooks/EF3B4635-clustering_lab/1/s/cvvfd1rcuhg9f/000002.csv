@@ -1,0 +1,7 @@
+"0","clusterings %>% "
+"0","  unnest(augmented) %>%"
+"0","  filter(k == 2) %>%"
+"0","  group_by(.cluster) %>%"
+"0","  summarise(mean(hd), mean(ram))"
+"2","`summarise()` ungrouping output (override with `.groups` argument)
+"

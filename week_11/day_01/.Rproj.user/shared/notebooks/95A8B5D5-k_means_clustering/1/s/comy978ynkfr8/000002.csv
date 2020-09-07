@@ -1,0 +1,11 @@
+"0","```r
+summary(arrests)
+```"
+"1","     murder          assault     
+ Min.   : 0.800   Min.   : 45.0  
+ 1st Qu.: 4.075   1st Qu.:109.0  
+ Median : 7.250   Median :159.0  
+ Mean   : 7.788   Mean   :170.8  
+ 3rd Qu.:11.250   3rd Qu.:249.0  
+ Max.   :17.400   Max.   :337.0  
+"

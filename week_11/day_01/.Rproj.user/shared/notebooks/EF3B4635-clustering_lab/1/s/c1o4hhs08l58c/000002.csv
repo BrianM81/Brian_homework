@@ -1,0 +1,2 @@
+"0","ggplot(computer_ram, aes(hd, ram)) +"
+"0","  geom_point()"

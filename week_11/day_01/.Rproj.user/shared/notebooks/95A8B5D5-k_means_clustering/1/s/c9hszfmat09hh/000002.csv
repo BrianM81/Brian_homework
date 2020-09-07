@@ -1,0 +1,9 @@
+"0","```r
+clusterings %>%
+  unnest(augmented) %>%
+  filter(k==2) %>%
+  ggplot(aes(x = murder, y = assault, colour = .cluster, label = .rownames)) +
+  geom_point() +
+  geom_text(hjust = 0, vjust = -0.5, size = 3)
+
+```"

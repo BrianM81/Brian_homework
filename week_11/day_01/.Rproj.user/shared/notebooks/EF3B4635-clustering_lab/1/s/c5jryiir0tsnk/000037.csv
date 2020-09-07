@@ -1,0 +1,6 @@
+"0","clusterings %>%"
+"0","  unnest(cols = c(augmented)) %>%"
+"0","  filter(k==2) %>%"
+"0","  ggplot(aes(x = hd, y = ram, colour = .cluster, label = sizeDiss(n))) + #num of obs."
+"0","  geom_point(aes(color = .cluster)) +"
+"0","  geom_text(hjust = 0, vjust = -0.5, size = 3)"

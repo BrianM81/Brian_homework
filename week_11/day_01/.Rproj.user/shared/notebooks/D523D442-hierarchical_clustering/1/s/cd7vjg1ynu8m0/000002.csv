@@ -1,0 +1,18 @@
+"0","```r
+summary(arrests)
+```"
+"1","    state                murder.V1            assault.V1     
+ Length:50          Min.   :-1.6044046   Min.   :-1.5090416  
+ Class :character   1st Qu.:-0.8524835   1st Qu.:-0.7410815  
+ Mode  :character   Median :-0.1235217   Median :-0.1411127  
+                    Mean   : 0.0000000   Mean   : 0.0000000  
+                    3rd Qu.: 0.7948553   3rd Qu.: 0.9388312  
+                    Max.   : 2.2068599   Max.   : 1.9947764  
+     urban_pop.V1           rape.V1       
+ Min.   :-2.3171363   Min.   :-1.4874469  
+ 1st Qu.:-0.7627068   1st Qu.:-0.6573508  
+ Median : 0.0317794   Median :-0.1208577  
+ Mean   : 0.0000000   Mean   : 0.0000000  
+ 3rd Qu.: 0.8435371   3rd Qu.: 0.5277383  
+ Max.   : 1.7589234   Max.   : 2.6443501  
+"

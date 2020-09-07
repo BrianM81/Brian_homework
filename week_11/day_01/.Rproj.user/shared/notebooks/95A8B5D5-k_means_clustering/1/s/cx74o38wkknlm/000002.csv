@@ -1,0 +1,4 @@
+"0","```r
+ggplot(arrests, aes(murder, assault)) +
+  geom_point()
+```"

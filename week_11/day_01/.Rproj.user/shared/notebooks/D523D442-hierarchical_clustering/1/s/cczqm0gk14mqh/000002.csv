@@ -1,0 +1,6 @@
+"0","```r
+diss_matrix <- arrests %>%
+  column_to_rownames(\"state\") %>%
+  select(urban_pop) %>%
+  dist(method = \"euclidean\")
+```"

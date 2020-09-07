@@ -1,0 +1,5 @@
+"0","clusterings %>%"
+"0","  unnest(augmented) %>%"
+"0","  filter(k <= 6) %>%"
+"0","  ggplot(aes(x = hd, y = ram)) +"
+"0","  geom_point(aes(colour = .cluster))"

@@ -1,0 +1,150 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+```
+
+```{r}
+arrests <- USArrests %>%
+  janitor::clean_names() %>%
+  select(c(murder, assault))
+arrests
+```
+
+```{r}
+ggplot(arrests, aes(murder, assault)) +
+  geom_point()
+```
+
+```{r}
+summary(arrests)
+```
+
+#We need to scale this data, as there are some big numbers here!
+
+normalized_df=(df-df.mean())/df.std()
+to use min-max normalization:
+normalized_df=(df-df.min())/(df.max()-df.min())
+
+```{r}
+arrests_scale <- arrests %>%
+ mutate_all(scale)
+ arrests_scale 
+```
+
+#we'll talk about how to pick k later however now we'll just pick = 6
+```{r}
+clustered_arrests <- kmeans(arrests_scale, centers = 6, nstart = 25)
+clustered_arrests
+```
+
+#Cluster sum of squares measures how well it is clustered
+
+```{r}
+library(broom)
+```
+
+```{r}
+tidy(clustered_arrests) #gives info on a whole
+```
+
+```{r}
+glance(clustered_arrests) #info on how well its clustered
+```
+
+#Above took 3 iterations, 3 times before the centroids don't move
+
+```{r}
+augment(clustered_arrests, arrests) #says what's in each cluster
+```
+
+#We can use animation, don't use all for presentation for clients, they tend to just want to see the result not how we got there, last one would be fine
+
+```{r}
+library(animation)
+```
+
+```{r}
+arrests_scale %>%
+  kmeans.ani(centers = 6)
+```
+
+#If you get different answers from different people running this it likely means that the data may not be properly set up
+
+```{r}
+glance(clustered_arrests)
+```
+#Note the above figure is not linked to the final plot above
+want to minimise withinss, but not so much that centroids are in other clusters?
+
+How do we pick k?
+Method 1 Elbow method
+Method 2 Silhouette coefficient
+Method 3 Gap statistic
+
+Method 1, try for k = 20
+
+```{r}
+max_k <- 20
+
+k_clusters  <- tibble(k = 1:max_k) %>%
+  mutate(
+    kclust = map(k, ~kmeans(arrests_scale, .x, nstart = 25)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, arrests)
+  )
+k_clusters
+```
+
+```{r}
+clusterings <- k_clusters %>%
+  unnest(glanced)
+```
+
+```{r}
+ggplot(clusterings, aes(x = k, y = tot.withinss)) +
+         geom_point() +
+         geom_line() +
+         scale_x_continuous(breaks = seq(1, 20, by = 1))
+```
+
+```{r}
+library(factoextra)
+```
+
+```{r}
+fviz_nbclust(arrests_scale, kmeans, method = "wss", nstart = 25) #wss is elbow diagram
+```
+
+```{r}
+fviz_nbclust(arrests_scale, kmeans, method = "silhouette", nstart = 25)
+```
+
+#Gap statistic is a bit like the null hypothesis for normal distibution?
+
+```{r}
+clusterings %>%
+  unnest(augmented) %>%
+  filter(k <= 6) %>%
+  ggplot(aes(x = murder, y = assault)) +
+  geom_point(aes(colour = .cluster))
+```
+
+```{r}
+clusterings %>%
+  unnest(augmented) %>%
+  filter(k==2) %>%
+  ggplot(aes(x = murder, y = assault, colour = .cluster, label = .rownames)) +
+  geom_point() +
+  geom_text(hjust = 0, vjust = -0.5, size = 3)
+
+```
+
+

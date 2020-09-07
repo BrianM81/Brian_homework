@@ -1,0 +1,4 @@
+"0","```r
+clusterings <- k_clusters %>%
+  unnest(glanced)
+```"

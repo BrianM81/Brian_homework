@@ -1,0 +1,5 @@
+"0","```r
+arrests_clustered_h3 <- arrests %>%
+                        mutate(murder_cluster = cutree(clusters, 3))
+arrests_clustered_h3
+```"

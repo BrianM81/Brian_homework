@@ -1,0 +1,7 @@
+"0","```r
+fviz_nbclust(arrests_scale, kmeans, method = \"wss\", nstart = 25) #wss is elbow diagram
+```"
+"1","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

@@ -1,0 +1,195 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+```
+Use k-means clustering to investigate potential relationships in the dataset computers.csv that has information of computer sales. We are interested in relationships between hd (hard drive size) and ram (type of computer memory):
+
+1. Explore the data - do you think it looks potentially suitable for clustering?
+
+```{r}
+computers <- read_csv("computers.csv")
+glimpse(computers)
+summary(computers)
+```
+
+```{r}
+computer_ram <- computers %>%
+  select(c(hd, ram))
+computer_ram
+```
+
+Lots of data here, lets use ggplot to get some visualisation
+
+```{r}
+ggplot(computer_ram, aes(hd, ram)) +
+  geom_point()
+```
+
+The data appears to already be grouped quite distinctly in 5 groups, where there are 5 values of ram.
+So although we could say this is good for clustering, it's not clear there is much more we could learn from this.
+
+#We need to scale this data, as there are some big numbers here!
+
+normalized_df=(df-df.mean())/df.std()
+to use min-max normalization:
+normalized_df=(df-df.min())/(df.max()-df.min())
+
+```{r}
+computer_ram_scale <- computer_ram %>%
+ mutate_all(scale)
+ computer_ram_scale 
+```
+
+
+2. Chose a value of k
+
+From the flat gradient relationships showing, k = 6 seems like the most logical choice, as there are 6 lines showing in the plot.
+
+3. Create clusters with chosen value of k - pull out the sizes of the clusters and the average of each variable in the dataset for each cluster.
+
+```{r}
+clustered_comp_ram <- kmeans(computer_ram_scale, centers = 6, nstart = 25)
+clustered_comp_ram #Using nstart 25 as often recommended
+```
+
+4. Visualise the clusters
+
+Lets use broom to get information on each cluster first
+
+```{r}
+library(broom)
+```
+
+```{r}
+tidy(clustered_comp_ram) #gives info on a whole
+```
+
+
+```{r}
+glance(clustered_comp_ram) #info on how well its clustered
+```
+
+The above took 2 iterations before centroids stopped moving, although this could change.
+
+```{r}
+augment(clustered_comp_ram, computer_ram) #says what's in each cluster
+```
+
+#We can use animation, don't use all for presentation for clients, they tend to just want to see the result not how we got there, last one would be fine
+
+```{r}
+library(animation)
+```
+
+
+```{r}
+computer_ram_scale %>%
+  kmeans.ani(centers = 6)
+```
+
+Here the clustering appears to work well, despite initial reservations. The centroids are distinct although 2 of the clusters above look very close at the bottom left of the graphic as things stand.
+
+```{r}
+glance(clustered_comp_ram)
+```
+
+
+How do we pick k?
+Method 1 Elbow method
+Method 2 Silhouette coefficient
+Method 3 Gap statistic
+
+Method 1, try for k = 20
+
+```{r}
+max_k <- 6
+
+k_clusters  <- tibble(k = 1:max_k) %>%
+  mutate(
+    kclust = map(k, ~kmeans(computer_ram_scale, .x, nstart = 25)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, computer_ram)
+  )
+k_clusters
+```
+
+```{r}
+clusterings <- k_clusters %>%
+  unnest(glanced)
+```
+
+
+```{r}
+ggplot(clusterings, aes(x = k, y = tot.withinss)) +
+         geom_point() +
+         geom_line() +
+         scale_x_continuous(breaks = seq(1, 6, by = 1))
+```
+
+Above k =2 seems a better fit using the elbow method.
+
+
+```{r}
+library(factoextra)
+```
+
+
+```{r}
+fviz_nbclust(computer_ram_scale, kmeans, method = "wss", nstart = 25)
+```
+
+Again, k = 2 is showing as the best fit. Now try the silhouette coefficient
+
+```{r}
+fviz_nbclust(computer_ram_scale, kmeans, method = "silhouette", nstart = 25)
+```
+Here, k = 10 is looking like the best fit.
+
+Now lets try the gap statistic
+
+```{r}
+fviz_nbclust(computer_ram_scale, kmeans, method = "gap_stat", nstart = 25)
+```
+
+Can also visulise via ggplot, lets try this
+
+```{r}
+clusterings %>%
+  unnest(augmented) %>%
+  filter(k <= 6) %>%
+  ggplot(aes(x = hd, y = ram)) +
+  geom_point(aes(colour = .cluster))
+```
+
+Lets try our new chosen value of k = 2 now
+
+```{r}
+clusterings %>%
+  unnest(cols = c(augmented)) %>%
+  filter(k==2) %>%
+  ggplot(aes(x = hd, y = ram, colour = .cluster, label = sizeDiss(n))) + #num of obs.
+  geom_point(aes(color = .cluster)) +
+  geom_text(hjust = 0, vjust = -0.5, size = 3)
+```
+
+We can then extract the clusters to do descriptive statistics at the level of the cluster
+
+```{r}
+clusterings %>% 
+  unnest(augmented) %>%
+  filter(k == 2) %>%
+  group_by(.cluster) %>%
+  summarise(mean(hd), mean(ram))
+```
+
+There is a large variation so this is a good sign of the clusters being separated.

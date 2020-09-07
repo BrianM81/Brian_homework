@@ -1,0 +1,4 @@
+"0","```r
+clusters <- diss_matrix %>%
+  hclust(method = \"complete\")
+```"

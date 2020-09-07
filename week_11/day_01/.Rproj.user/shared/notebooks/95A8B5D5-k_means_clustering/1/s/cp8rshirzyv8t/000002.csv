@@ -1,0 +1,7 @@
+"0","```r
+clusterings %>%
+  unnest(augmented) %>%
+  filter(k <= 6) %>%
+  ggplot(aes(x = murder, y = assault)) +
+  geom_point(aes(colour = .cluster))
+```"

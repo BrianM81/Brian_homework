@@ -1,0 +1,7 @@
+"0","```r
+arrests <- USArrests %>%
+  janitor::clean_names() %>%
+  rownames_to_column(\"state\") %>%
+  mutate_if(is.numeric, scale)
+arrests
+```"

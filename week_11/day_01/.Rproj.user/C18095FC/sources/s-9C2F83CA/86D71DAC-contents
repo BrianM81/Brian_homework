@@ -1,0 +1,190 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+```
+
+```{r}
+head(USArrests)
+```
+
+```{r}
+summary(USArrests) #no missing values, this is a favourable result
+```
+
+#We now have to scale our data as clustering is based on distances, so use normalisation? (Standardised variables)
+
+```{r}
+arrests <- USArrests %>%
+  janitor::clean_names() %>%
+  rownames_to_column("state") %>% #just for this dataset as no state quoted
+  mutate_if(is.numeric, scale)
+arrests
+```
+
+```{r}
+summary(arrests)
+```
+
+We are now going to create a dissimilarity matrix. We have been asked to group states in terms of murder rates, so we can allocate funding/resources. Use diss from factoextra package
+
+```{r}
+diss_matrix <- arrests %>%
+  column_to_rownames("state") %>%
+  select(murder) %>%
+  dist(method = "euclidean")
+```
+Now use fviz_dist to visualise
+
+```{r}
+fviz_dist(diss_matrix)
+```
+
+```{r}
+clusters <- diss_matrix %>%
+  hclust(method = "complete")
+```
+
+```{r}
+clusters %>%
+  plot()
+```
+
+#Lets make text smaller and move it down a bit to make it easier to read
+
+```{r}
+clusters %>%
+  plot(cex = 0.5, hang = -5)
+```
+
+```{r}
+plot(clusters, cex = 0.5, hang = -5)
+rect.hclust(clusters, k = 3)
+```
+
+#Lets look at cut tree
+```{r}
+arrests_clustered_h3 <- arrests %>%
+                        mutate(murder_cluster = cutree(clusters, 3))
+arrests_clustered_h3
+```
+
+#Task =
+Spend some time carrying out cluster analysis for your other variables assault, urban_pop, and rape. What do you find for each variable? How many clusters do you choose, and why? What are your interpretations from your analysis?
+What happens if you include all your data related to crime (murder, assualt and rape) and perform clustering? (i.e. do not subset the data as we did in one of our first steps). For this, you have moved from predicting a specific variable to predicting something you might denoted as “overall crime rates”. Do you get different results when the clustering takes into account all your data at once for each state? How would you interpret your results?
+
+#Try this for assault
+
+
+```{r}
+diss_matrix <- arrests %>%
+  column_to_rownames("state") %>%
+  select(assault) %>%
+  dist(method = "euclidean")
+```
+
+Now use fviz_dist to visualise
+
+```{r}
+fviz_dist(diss_matrix)
+```
+
+```{r}
+clusters <- diss_matrix %>%
+  hclust(method = "complete")
+```
+
+```{r}
+clusters %>%
+  plot(cex = 0.5, hang = -5)
+```
+
+```{r}
+plot(clusters, cex = 0.5, hang = -5)
+rect.hclust(clusters, k = 4)
+```
+
+#Lets look at cut tree
+```{r}
+arrests_clustered_h3 <- arrests %>%
+                        mutate(assault_cluster = cutree(clusters, 3))
+arrests_clustered_h3
+```
+
+```{r}
+diss_matrix <- arrests %>%
+  column_to_rownames("state") %>%
+  select(urban_pop) %>%
+  dist(method = "euclidean")
+```
+
+Now use fviz_dist to visualise
+
+```{r}
+fviz_dist(diss_matrix)
+```
+
+```{r}
+clusters <- diss_matrix %>%
+  hclust(method = "complete")
+```
+
+```{r}
+clusters %>%
+  plot(cex = 0.5, hang = -5)
+```
+
+```{r}
+plot(clusters, cex = 0.5, hang = -5)
+rect.hclust(clusters, k = 3)
+```
+
+```{r}
+#Lets look at cut tree
+arrests_clustered_h3 <- arrests %>%
+                        mutate(urban_pop_cluster = cutree(clusters, 3))
+arrests_clustered_h3
+```
+
+```{r}
+diss_matrix <- arrests %>%
+  column_to_rownames("state") %>%
+  select(rape) %>%
+  dist(method = "euclidean")
+```
+
+Now use fviz_dist to visualise
+
+```{r}
+fviz_dist(diss_matrix)
+``` 
+
+```{r}
+clusters <- diss_matrix %>%
+  hclust(method = "complete")
+```
+
+```{r}
+clusters %>%
+  plot(cex = 0.5, hang = -5)
+```
+
+```{r}
+plot(clusters, cex = 0.5, hang = -5)
+rect.hclust(clusters, k = 3)
+```
+
+#Lets look at cut tree
+```{r}
+arrests_clustered_h3 <- arrests %>%
+                        mutate(rape_cluster = cutree(clusters, 3))
+arrests_clustered_h3
+```
+
+

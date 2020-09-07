@@ -1,0 +1,5 @@
+"0","```r
+arrests_scale <- arrests %>%
+ mutate_all(scale)
+ arrests_scale 
+```"
