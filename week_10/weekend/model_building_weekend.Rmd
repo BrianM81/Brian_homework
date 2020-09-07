@@ -1,0 +1,151 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+avocado <- read_csv("avocado.csv")
+glimpse(avocado)
+head(avocado)
+```
+
+#Lets clean the names up
+
+```{r}
+avocado_clean <- clean_names(avocado)
+glimpse(avocado_clean)
+head(avocado_clean)
+```
+
+```{r}
+tally(avocado_clean, region = "TotalUS")
+```
+#This is a total of 18249, the total of the dataset so this is an unnecessary variable, assuming we are keeping "region". Now lets compare Albany and New York (I know that Albany is in New York State, I want to see the comparison)
+
+```{r}
+count(avocado_clean, region = "Albany")
+```
+
+
+
+#Lets check the unique values of region to decide whether this should remain
+
+```{r}
+unique(avocado_clean$region)
+```
+
+```{r}
+avocado_regions <- avocado_clean %>% 
+    select(region) %>%
+    group_by(region) %>%
+    summarise(character_count = n()) %>%
+    arrange(desc(character_count))
+avocado_regions
+```
+So these are universally split between the different areas, this looks like it would be useful to keep this data as is, despite there being some duplication, ie = between New York and Albany
+
+#Lets look at unique values for type and year
+
+```{r}
+unique(avocado_clean$type)
+```
+
+```{r}
+unique(avocado_clean$year)
+```
+
+Note there is also a lot of duplication here, the year and the date, also total_bags is a sum of small_bags, large_bags and x_large_bags
+
+
+```{r}
+avocado_tidy <- avocado_clean %>%
+  drop_na() %>% #drop any null values
+select(-x1, -small_bags, -large_bags, -x_large_bags, -year) %>%
+ arrange(date) %>%
+  select(-date) #now we have ordered by date, we do not need this data
+avocado_tidy
+```
+
+Lets add libraries to carry out linear regression
+
+```{r}
+library(modelr)
+# visualisation packages
+library(ggiraphExtra)
+library(GGally)
+```
+
+Let’s have a look at the associations of the predictors with each other.
+
+```{r}
+avocado_tidy %>%
+  ggpairs(aes(colour = type, alpha = 0.5))
+```
+
+Due to error message it may be better to remove region after all, even if I change these into states it is likely to still be vastly over 15.
+
+```{r}
+avocado_trim <- avocado_tidy %>%
+  select(-region)
+avocado_trim
+```
+
+Let’s have a look at the associations of the predictors with each other.
+
+```{r}
+avocado_trim %>%
+  ggpairs(aes(colour = type, alpha = 0.5))
+```
+
+```{r}
+mod1a <- lm(average_price ~ x4046, data = avocado_trim)
+mod1a
+```
+
+```{r}
+summary(mod1a)
+```
+
+```{r}
+par(mfrow = c(2, 2)) 
+
+# plot
+plot(mod1a)
+```
+
+Now subtract off systematic variation
+
+```{r}
+avocado_remaining_resid <- avocado_trim %>%
+  add_residuals(mod1a) %>%
+  select(-c("average_price", "x4046"))
+
+avocado_remaining_resid %>%
+  ggpairs(aes(colour = type, alpha = 0.5))
+```
+
+```{r}
+# make an income model 
+mod2a <- lm(average_price ~ x4046 + total_volume, data = avocado_trim)
+summary(mod2a)
+```
+
+```{r}
+par(mfrow = c(2, 2))
+plot(mod2a)
+```
+
+#I think the first model is best but lets check with Anova
+
+```{r}
+anova(mod1a, mod2a)
+```
+
+Low p value means that total volume is worth keeping
+
+#It looks like the models are very similar, not as much correlation as we would like
