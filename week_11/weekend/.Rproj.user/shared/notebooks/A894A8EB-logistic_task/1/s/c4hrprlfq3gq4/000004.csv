@@ -1,0 +1,24 @@
+"0","orange_juice <- read_csv(""orange_juice.csv"") #read csv file"
+"2","Parsed with column specification:
+cols(
+  Purchase = [31mcol_character()[39m,
+  WeekofPurchase = [32mcol_double()[39m,
+  StoreID = [32mcol_double()[39m,
+  PriceCH = [32mcol_double()[39m,
+  PriceMM = [32mcol_double()[39m,
+  DiscCH = [32mcol_double()[39m,
+  DiscMM = [32mcol_double()[39m,
+  SpecialCH = [32mcol_double()[39m,
+  SpecialMM = [32mcol_double()[39m,
+  LoyalCH = [32mcol_double()[39m,
+  SalePriceMM = [32mcol_double()[39m,
+  SalePriceCH = [32mcol_double()[39m,
+  PriceDiff = [32mcol_double()[39m,
+  Store7 = [31mcol_character()[39m,
+  PctDiscMM = [32mcol_double()[39m,
+  PctDiscCH = [32mcol_double()[39m,
+  ListPriceDiff = [32mcol_double()[39m,
+  STORE = [32mcol_double()[39m
+)
+"
+"0","head(orange_juice)"

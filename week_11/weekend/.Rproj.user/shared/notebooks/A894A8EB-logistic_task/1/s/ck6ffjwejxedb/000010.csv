@@ -1,0 +1,4 @@
+"0","orange_juice_tidy <- orange_juice_clean %>%"
+"0","  select(- weekof_purchase) %>%"
+"0","mutate(as.factor(store7)) "
+"0","orange_juice_tidy"

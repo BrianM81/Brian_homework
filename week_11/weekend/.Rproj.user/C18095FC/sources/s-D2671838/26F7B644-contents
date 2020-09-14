@@ -1,0 +1,214 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(rpart)
+library(rpart.plot)
+library(tidyverse)
+
+library(tidyverse)
+titanic_set <- read_csv("titanic_decision_tree_data.csv")
+
+shuffle_index <- sample(1:nrow(titanic_set))
+
+# shuffle the data so class order isn't in order - need this for training/testing split later on 
+titanic_set <- titanic_set[shuffle_index, ]
+```
+
+```{r}
+glimpse(titanic_set)
+```
+
+Question 1
+
+Cleaning up the data is always the first step. Do the following:
+
+Take only observations which have a survived flag (i.e. that aren’t missing)
+Turn your important variables into factors (sex, survived, pclass, embarkation)
+Create an age_status variable which groups individuals under (and including) 16 years of age into a category called “child” category and those over 16 into a category called “adult”.
+Drop the NA
+Drop any variables you don’t need (X1, passenger_id, name, ticket, far, cabin)
+
+
+```{r}
+titanic_clean <- titanic_set %>%
+  filter(survived %in% c(0,1)) %>%
+# turn variables into factors
+    mutate(sex = as.factor(sex), 
+           survived = factor(survived, levels = c(0,1), labels = c("No", "Yes")),
+           pclass = factor(pclass, levels = c(3,2,1), labels = c("Lower", "Middle", "Upper")), 
+           embarkation = as.factor(embarked),
+           age_status = as.factor(if_else(age <= 16, "child", "adult"))) %>%
+  na.omit() %>%
+  select(-X1, -passenger_id, -name, -ticket, -fare, -cabin) 
+ glimpse(titanic_clean) 
+```
+
+1.2 Question 2
+
+Have a look at your data and create some plots to ensure you know what you’re working with before you begin. Write a summary of what you have found in your plots. Which variables do you think might be useful to predict whether or not people are going to die? Knowing this before you start is the best way to have a sanity check that your model is doing a good job.
+
+```{r}
+library(GGally)
+ titanic_clean %>%
+  select(survived, pclass, sex) %>%
+  ggpairs()
+```
+
+```{r}
+ titanic_clean %>%
+  select(survived, age, sib_sp) %>%
+  ggpairs()
+```
+
+```{r}
+ titanic_clean %>%
+  select(survived, parch, embarked) %>%
+  ggpairs()
+```
+
+```{r}
+ titanic_clean %>%
+  select(survived, embarkation, age_status) %>%
+  ggpairs()
+```
+
+From above, pclass seems to be a good indicator of survival, as does age/ age status and embarked/embarkation
+You are more likely to survive if female.
+There are 2 peaks in the ages data, I am not sure if these are for survived/not survived however, I cannot see the key in the graph.
+
+1.3 Question 3
+
+Now you can start to build your model. Create your testing and training set using an appropriate split. Check you have balanced sets. Write down why you chose the split you did and produce output tables to show whether or not it is balanced.
+
+
+```{r}
+#Let’s have 80% of our data going into the training set, and the remaining 20% go in our test set.
+# get how many rows we have in total to work out the percentage
+n_data <- nrow(titanic_clean)
+# create a test sample index
+test_index <- sample(1:n_data, size = n_data*0.2)
+# create test set
+titanic_test  <- slice(titanic_clean, test_index)
+# create training set
+titanic_train <- slice(titanic_clean, -test_index)
+```
+
+Check the balance using tabyl from janitor package
+
+```{r}
+library(janitor)
+titanic_test %>%
+  tabyl(survived)
+```
+
+```{r}
+titanic_train %>%
+  tabyl(survived)
+```
+
+The sets are similar, although the test does show a bit more variance.
+
+#I thought I got rid of NAs above? NAs were showing, however this is now fixed. Double check however
+
+```{r}
+unique(titanic_clean$survived)
+```
+The above indicates to me there should only be yes or no so I'm not sure what went wrong here.
+
+## Question 4
+
+Create your decision tree to try and predict survival probability using an appropriate method, and create a decision tree plot.
+
+```{r}
+#Survival is a binary categorical variable so use class rather than anova here
+titanic_fit <- rpart(survived ~ . , 
+                     data = titanic_train, 
+                     method = "class")
+
+rpart.plot(titanic_fit, yesno = 2)
+```
+
+Question 5
+
+Write down what this tells you, in detail. What variables are important? What does each node tell you? Who has the highest chance of surviving? Who has the lowest? Provide as much detail as you can.
+
+The text at the top of the node (Yes/No) is whether the person has survived
+The second line is the probability of "survived" expressed as a decimal
+The third line is the percentage of datapoints passing through the node, leaf nodes should total 100% 
+
+This gives us the following information
+=> If you have survived, there is a 94% chance you are female
+=> If you are male, you are 39% likely to die
+=> If you are male and under 18 you are 100% likely to survive
+=> The remaining males 18 years of age or older have a 33% chance of perishing
+=> Out of this, males 18 or older but younger than 36 have a 50% chance of survival
+=> Out of these, if they are under 36 but 26 or older, they have a 59% chance of survival
+=> Males 36 years of age or older have a 23% chance of dying
+=> Males aged 52 or over have a 12% chance of dying
+=> Males younger than 52 but 36 or older have an 18% chance of dying
+=> Out of this group, males 48or older but younger than 52 have a 71% chance of survival
+
+Lets check the rules to see if they say similar
+
+```{r}
+rpart.rules(titanic_fit, cover = TRUE)
+```
+
+Question 6.
+
+Test and add your predicitons to your data. Create a confusion matrix. Write down in detial what this tells you for this specific dataset.
+
+
+```{r}
+#For this I will use add_predictions from modelr package
+library(modelr)
+# add the predictions
+titanic_test_pred <- titanic_test %>%
+                 add_predictions(titanic_fit, type = 'class')
+```
+
+Now look at predictions. The decision tree showed sex and age as being the main contributing factors, so I will examine these.
+
+```{r}
+titanic_test_pred %>%
+  select(age, sex, pred)
+```
+
+This appears to fit what the data showed us so far.
+
+Lets look at the confusion matrix. For this, we use the function conf_mat() from the yardstick package
+
+```{r}
+library(yardstick)
+
+conf_mat <- titanic_test_pred %>%
+              conf_mat(truth = survived, estimate = pred)
+
+conf_mat
+```
+
+The true positives are currently showing at 22, true negatives at 4, whereas false positives at 6 and false negatives at 4. 
+Accuracy = (4 + 22)/(4 + 22 + 4 + 6) 
+         =26/36
+         =72.22%
+         
+Can also check this below
+
+```{r}
+accuracy <- titanic_test_pred %>%
+ accuracy(truth = survived, estimate = pred)
+
+accuracy 
+```
+
+Now check this in caret for a summary
+
+```{r}
+library(caret)
+
+confusionMatrix(titanic_test_pred$pred, titanic_test_pred$survived) #order is estimate and then truth 
+```
+

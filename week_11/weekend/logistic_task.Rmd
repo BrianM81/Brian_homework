@@ -3,3 +3,52 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+```{r}
+library(tidyverse) #Load libraries
+library(janitor)
+library(GGally)
+library(modelr)
+```
+
+
+```{r}
+orange_juice <- read_csv("orange_juice.csv") #read csv file
+head(orange_juice)
+```
+
+```{r}
+glimpse(orange_juice)
+```
+
+```{r}
+summary(orange_juice)
+```
+
+check for na values 
+
+```{r}
+any(is.na(orange_juice))
+```
+
+```{r}
+orange_juice_clean <- clean_names(orange_juice)
+ orange_juice_clean
+```
+
+```{r}
+orange_juice_tidy <- orange_juice_clean %>%
+  mutate(purchase = as.logical(purchase))
+orange_juice_tidy
+```
+
+#Not working, turning these values into NA
+
+
+```{r}
+orange_juice_tidy <- orange_juice_clean %>%
+  select(- weekof_purchase) %>%
+mutate(as.factor(store7)) 
+orange_juice_tidy
+```
+
+

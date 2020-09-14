@@ -5,7 +5,7 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3285104983",
+    "hash" : "0",
     "id" : "857AD946",
     "lastKnownWriteTime" : 1600062548,
     "last_content_update" : 1600062548980,
@@ -13,8 +13,8 @@
     "project_path" : "clustering_task.Rmd",
     "properties" : {
         "chunk_output_type" : "inline",
-        "cursorPosition" : "123,150",
-        "scrollLine" : "116",
+        "cursorPosition" : "115,0",
+        "scrollLine" : "115",
         "tempName" : "Untitled1"
     },
     "read_only" : false,

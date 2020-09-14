@@ -1,0 +1,3 @@
+"0","orange_juice_tidy <- orange_juice_clean %>%"
+"0","  mutate(purchase = as.logical(purchase))"
+"0","orange_juice_tidy"
