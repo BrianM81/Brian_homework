@@ -1,0 +1,6 @@
+"0","```r
+library(GGally)
+ titanic_clean %>%
+  select(survived, pclass, sex) %>%
+  ggpairs()
+```"

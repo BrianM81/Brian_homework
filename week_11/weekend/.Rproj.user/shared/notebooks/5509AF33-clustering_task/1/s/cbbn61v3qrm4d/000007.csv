@@ -1,0 +1,5 @@
+"0","clusters <- augment(clustered_mall_tidy, mall_tidy)"
+"0",""
+"0","ggplot(clusters, aes(x = annual_income_k,"
+"0","                     y = spending_score_1_100, colour = .cluster)) +"
+"0","  geom_point() "

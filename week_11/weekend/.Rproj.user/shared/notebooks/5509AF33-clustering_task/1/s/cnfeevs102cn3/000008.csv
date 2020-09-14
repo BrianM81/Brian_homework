@@ -1,0 +1,3 @@
+"0",""
+"0","ggplot(mall_tidy, aes(annual_income_k, spending_score_1_100)) +"
+"0","  geom_point()"

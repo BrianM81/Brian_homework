@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1599920403035.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3285104983",
+    "id" : "857AD946",
+    "lastKnownWriteTime" : 1600062548,
+    "last_content_update" : 1600062548980,
+    "path" : "~/Codeclan/Brian_homework/week_11/weekend/clustering_task.Rmd",
+    "project_path" : "clustering_task.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "123,150",
+        "scrollLine" : "116",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

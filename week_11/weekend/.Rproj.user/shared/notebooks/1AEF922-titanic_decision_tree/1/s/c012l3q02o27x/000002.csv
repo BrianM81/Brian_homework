@@ -1,0 +1,13 @@
+"0","```r
+titanic_clean <- titanic_set %>%
+  filter(survived %in% c(0,1)) %>%
+# turn variables into factors
+    mutate(sex = as.factor(sex), 
+           survived = factor(survived, levels = c(0,1), labels = c(\"No\", \"Yes\")),
+           pclass = factor(pclass, levels = c(3,2,1), labels = c(\"Lower\", \"Middle\", \"Upper\")), 
+           embarkation = as.factor(embarked),
+           age_status = as.factor(if_else(age <= 16, \"child\", \"adult\"))) %>%
+  na.omit() %>%
+  select(-X1, -passenger_id, -name, -ticket, -fare, -cabin) 
+ glimpse(titanic_clean) 
+```"

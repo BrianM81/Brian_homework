@@ -1,0 +1,5 @@
+"0","```r
+library(janitor)
+titanic_test %>%
+  tabyl(survived)
+```"

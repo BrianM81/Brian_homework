@@ -1,0 +1,11 @@
+"0","mall_customers <- read_csv(""mall_customers.csv"") #import dataset"
+"2","Parsed with column specification:
+cols(
+  CustomerID = [32mcol_double()[39m,
+  Gender = [31mcol_character()[39m,
+  Age = [32mcol_double()[39m,
+  `Annual Income (k$)` = [32mcol_double()[39m,
+  `Spending Score (1-100)` = [32mcol_double()[39m
+)
+"
+"0","head(mall_customers)"

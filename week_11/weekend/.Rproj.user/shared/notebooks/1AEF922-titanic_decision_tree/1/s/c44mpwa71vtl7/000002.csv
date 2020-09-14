@@ -1,0 +1,31 @@
+"0","```r
+library(rpart)
+library(rpart.plot)
+library(tidyverse)
+
+library(tidyverse)
+titanic_set <- read_csv(\"titanic_decision_tree_data.csv\")
+```"
+"1","Missing column names filled in: 'X1' [1]Parsed with column specification:
+cols(
+  X1 = [32mcol_double()[39m,
+  passenger_id = [32mcol_double()[39m,
+  pclass = [32mcol_double()[39m,
+  name = [31mcol_character()[39m,
+  sex = [31mcol_character()[39m,
+  age = [32mcol_double()[39m,
+  sib_sp = [32mcol_double()[39m,
+  parch = [32mcol_double()[39m,
+  ticket = [31mcol_character()[39m,
+  fare = [32mcol_double()[39m,
+  cabin = [31mcol_character()[39m,
+  embarked = [31mcol_character()[39m,
+  survived = [32mcol_double()[39m
+)
+"
+"0","```r
+shuffle_index <- sample(1:nrow(titanic_set))
+
+# shuffle the data so class order isn't in order - need this for training/testing split later on 
+titanic_set <- titanic_set[shuffle_index, ]
+```"

@@ -1,0 +1,5 @@
+"0","book_1 %>%"
+"0","  anti_join(stop_words) %>% #antijoin stop words to remove these"
+"0","  count(word, sort = TRUE)"
+"2","Joining, by = ""word""
+"

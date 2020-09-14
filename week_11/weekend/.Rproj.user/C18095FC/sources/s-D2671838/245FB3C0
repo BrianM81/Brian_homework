@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1599920526453.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "140128375",
+    "id" : "245FB3C0",
+    "lastKnownWriteTime" : 1600058501,
+    "last_content_update" : 1600058501422,
+    "path" : "~/Codeclan/Brian_homework/week_11/weekend/text_mining_task.Rmd",
+    "project_path" : "text_mining_task.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "76,0",
+        "scrollLine" : "75",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

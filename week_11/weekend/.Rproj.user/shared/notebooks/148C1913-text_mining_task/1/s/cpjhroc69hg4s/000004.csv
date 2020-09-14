@@ -1,0 +1,7 @@
+"0","book_1_sentiments <- "
+"0","book_1 %>%"
+"0","  inner_join(get_sentiments(""bing"")) %>%"
+"0","  count(word, sort = TRUE)"
+"2","Joining, by = ""word""
+"
+"0","book_1_sentiments"

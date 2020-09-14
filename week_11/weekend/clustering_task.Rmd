@@ -1,0 +1,125 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+You have been provided some customer data from a shopping centre. Do some exploratory analysis on the data. Comment on findings.
+
+```{r}
+library(tidyverse) #load libraries first
+library(cluster)
+library(factoextra)
+library(dendextend)
+library(janitor)
+```
+
+```{r}
+mall_customers <- read_csv("mall_customers.csv") #import dataset
+head(mall_customers)
+```
+
+```{r}
+glimpse(mall_customers)
+```
+
+```{r}
+class(mall_customers)
+```
+
+```{r}
+any(is.na(USArrests)) #check for missing values
+```
+
+No NA values, this is good news. Now we need to tidy the dataframe
+
+```{r}
+mall_tidy <- clean_names(mall_customers) %>%
+  select(- customer_id) #remove as this does not give additional information
+ mall_tidy
+```
+
+#Lets try a few plots to see how they compare
+
+```{r}
+mall_tidy %>%
+  select(c(annual_income_k, spending_score_1_100))
+
+ggplot(mall_tidy, aes(annual_income_k, spending_score_1_100)) +
+  geom_point()
+```
+#This looks very messy, there is a cluster of data in the middle which appears to branch out in an x shape
+
+There are a few variables so use gg pairs
+
+
+```{r}
+library(GGally)
+ mall_tidy %>%
+  select(gender, age, annual_income_k, spending_score_1_100) %>%
+  ggpairs()
+```
+
+There are not much clear correlations here, perhaps age and spending score shows a bit more promise.
+
+We are interested in creating a marketing campaign to target customers based on their spending score and annual income. Perform a k-means clustering to find if there are meaningful clusters in the data to target the customers.
+
+```{r}
+mall_tidy_scale <- mall_tidy %>% 
+  select(annual_income_k, spending_score_1_100) %>% 
+                      mutate_all(scale)
+
+summary(mall_tidy_scale)
+```
+
+Check each of the methods of choosing k:
+
+Elbow method
+
+```{r}
+fviz_nbclust(mall_tidy_scale, kmeans, method = "wss", nstart = 25)
+```
+
+Fairly smooth, maybe k =5 is where there is more of a kink, potentially k = 3 also
+
+Slhouette coefficient
+
+```{r}
+fviz_nbclust(mall_tidy_scale, kmeans, method = "silhouette", nstart = 25)
+```
+
+k = 5 chosen above although k= 7 is also close to average width
+
+Gap statistic
+
+```{r}
+fviz_nbclust(mall_tidy_scale, kmeans, method = "gap_stat")
+```
+
+Here k=1 showing. This is different to the above tests indicating that this data may not be well suited for k-means clustering.
+
+However I would go with the sihouette method as it looks similar to the elbow method, at k = 5.
+
+Visualise the clustering for your chosen value of k.
+
+```{r}
+clustered_mall_tidy <- kmeans(mall_tidy_scale, 5, nstart = 25)
+
+clustered_mall_tidy
+```
+
+```{r}
+clusters <- augment(clustered_mall_tidy, mall_tidy)
+
+ggplot(clusters, aes(x = annual_income_k,
+                     y = spending_score_1_100, colour = .cluster)) +
+  geom_point() 
+```
+
+Do you think the clustering seems a good fit for this data?
+
+Yes, this creates 5 distinct clusters for the data, clusters 1 and 5 are very close however overall the groups are distinct.
+
+Comment on the attributes on one or two of the clusters (maybe even give them a label if you like - like in section 4.1 of the ‘Segmentation & clustering intro’ lesson).
+
+Cluster 5 appears a good one to use for the campaign since the data points are very close together. The next best option would appear to be cluster 2.
+

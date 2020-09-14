@@ -1,0 +1,5 @@
+"0","fviz_nbclust(mall_tidy_scale, kmeans, method = ""wss"", nstart = 25)"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

@@ -1,0 +1,3 @@
+"0","mall_tidy <- clean_names(mall_customers) %>%"
+"0","  select(- customer_id)"
+"0"," mall_tidy"

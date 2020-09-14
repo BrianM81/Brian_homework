@@ -1,0 +1,8 @@
+"0","```r
+#Survival is a binary categorical variable so use class rather than anova here
+titanic_fit <- rpart(survived ~ . , 
+                     data = titanic_train, 
+                     method = \"class\")
+
+rpart.plot(titanic_fit, yesno = 2)
+```"

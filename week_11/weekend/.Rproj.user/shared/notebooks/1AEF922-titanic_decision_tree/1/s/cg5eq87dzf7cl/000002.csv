@@ -1,0 +1,5 @@
+"0","```r
+ titanic_clean %>%
+  select(survived, age, sib_sp) %>%
+  ggpairs()
+```"

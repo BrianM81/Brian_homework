@@ -1,0 +1,1 @@
+"0","fviz_nbclust(mall_tidy_scale, kmeans, method = ""silhouette"", nstart = 25)"

@@ -1,0 +1,4 @@
+"0","```r
+titanic_test_pred %>%
+  select(age, sex, pred)
+```"

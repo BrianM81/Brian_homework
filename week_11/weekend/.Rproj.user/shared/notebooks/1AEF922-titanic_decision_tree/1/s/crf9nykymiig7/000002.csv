@@ -1,0 +1,7 @@
+"0","```r
+#For this I will use add_predictions from modelr package
+library(modelr)
+# add the predictions
+titanic_test_pred <- titanic_test %>%
+                 add_predictions(titanic_fit, type = 'class')
+```"

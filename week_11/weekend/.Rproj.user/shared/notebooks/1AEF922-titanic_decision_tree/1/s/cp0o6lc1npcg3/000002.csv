@@ -1,0 +1,5 @@
+"0","```r
+library(caret)
+
+confusionMatrix(titanic_test_pred$pred, titanic_test_pred$survived) #order is estimate and then truth 
+```"

@@ -1,0 +1,8 @@
+"0","```r
+library(yardstick)
+
+conf_mat <- titanic_test_pred %>%
+              conf_mat(truth = survived, estimate = pred)
+
+conf_mat
+```"

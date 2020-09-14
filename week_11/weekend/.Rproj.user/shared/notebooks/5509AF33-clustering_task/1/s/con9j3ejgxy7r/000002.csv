@@ -1,0 +1,4 @@
+"0","library(GGally)"
+"0"," mall_tidy %>%"
+"0","  select(gender, age, annual_income_k, spending_score_1_100) %>%"
+"0","  ggpairs()"

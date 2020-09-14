@@ -1,0 +1,4 @@
+"0","```r
+titanic_train %>%
+  tabyl(survived)
+```"

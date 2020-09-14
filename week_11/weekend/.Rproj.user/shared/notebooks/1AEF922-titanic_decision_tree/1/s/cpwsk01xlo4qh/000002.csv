@@ -1,0 +1,6 @@
+"0","```r
+accuracy <- titanic_test_pred %>%
+ accuracy(truth = survived, estimate = pred)
+
+accuracy 
+```"
